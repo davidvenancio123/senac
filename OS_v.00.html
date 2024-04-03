@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abrir Ordem de Serviço</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    #header {
+        position: relative;
+        text-align: center;
+        padding-top: 20px; /* Espaçamento superior para evitar sobreposição */
+    }
+    #header img {
+        max-width: 100%;
+        height: auto;
+    }
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        text-align: center;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    input[type="text"],
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type="file"] {
+        margin-top: 10px;
+    }
+    button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    #foto-preview {
+        margin-top: 10px;
+        display: none;
+        max-width: 100%;
+        height: auto;
+    }
+    .button-container {
+        text-align: center;
+        margin-top: 20px; /* Espaçamento superior para separar dos campos do formulário */
+    }
+    .button-container button {
+        margin: 0 5px; /* Espaçamento entre os botões */
+    }
+    .table-container {
+        margin: 0 auto; /* Centraliza horizontalmente */
+        width: 80%; /* Define a largura da tabela */
+    }
+
+    #footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        background-color: #000066;
+        padding: 6px 0;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+    }
+    #footer .button {
+        background-color: #000066;
+        color: white;
+        padding: 1px 3px;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+        margin: 0 5px;
+        font-size: 11px;
+    }
+    #footer .button:hover {
+        background-color: #000066;
+    
+    }
+	#footer .button:hover {
+        background-color: #ffa500;
+    }
+
+</style>
+</head>
+<body>
+
+
+
+<div id="header">
+    <!-- Adicionando a imagem do cabeçalho -->
+    <img src="LOGO GERAL.png" alt="Logo Geral">
+
+</div>
+
+<div class="container">
+    <h2>Abrir Ordem de Serviço</h2>
+
+    
+
+<form id="ordemServicoForm">
+        <label for="tipoManutencao">Tipo de Manutenção:</label>
+        <select id="tipoManutencao">
+            <option value="Preditiva">Manutenção Preditiva</option>
+            <option value="Corretiva">Manutenção Corretiva</option>
+            <option value="Preventiva">Manutenção Preventiva</option>
+        </select>
+
+        <label for="regiao">Região:</label>
+        <select id="regiao" onchange="atualizarUnidades()">
+            <option value="">Selecione a região</option>
+            <option value="Região 01">Região 01</option>
+            <option value="Região 02">Região 02</option>
+            <option value="Região 03">Região 03</option>
+            <option value="Região 04">Região 04</option>
+            <option value="Região 05">Região 05</option>
+        </select>
+
+        <label for="unidade">Unidade:</label>
+        <select id="unidade">
+            <option value="">Selecione a unidade</option>
+        </select>
+
+        <label for="local">Local:</label>
+        <input type="text" id="local" placeholder="Informe o local">
+
+        <label for="data">Data da Manutenção:</label>
+        <input type="text" id="data" placeholder="Selecione a data" readonly>
+
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" style="width: 99%; height: 100px;" placeholder="Descreva a ordem de serviço"></textarea>
+
+        <label for="foto">Anexar Foto:</label>
+        <input type="file" id="foto" accept="image/*" onchange="previewFoto(this)">
+        <img id="foto-preview" src="#" alt="Foto Preview">
+
+        <label for="prioridade">Prioridade:</label>
+        <select id="prioridade">
+            <option value="NIVEL I (4 horas úteis)">Nível I (4 horas úteis)</option>
+            <option value="NIVEL II (8 horas úteis)">Nível II (8 horas úteis)</option>
+            <option value="NIVEL III (2 dias úteis)">Nível III (2 dias úteis)</option>
+            <option value="NIVEL IV (5 dias úteis)">Nível IV (5 dias úteis)</option>
+            <option value="NIVEL V (Data negociada)">Nível V (Data negociada)</option>
+        </select>
+
+        <label for="filtroData">Filtrar por Data:</label>
+        <input type="text" id="filtroData" placeholder="Selecione a data">
+
+        <div class="button-container">
+            <button type="button" onclick="enviar('email')">Enviar por E-mail</button>
+            <button type="button" onclick="enviar('whatsapp')">Enviar por WhatsApp</button>
+            <button type="button" onclick="salvarOrdensServico()">Salvar Registros</button>
+        </div>
+
+        <!-- Tabela para exibir os registros -->
+        <div class="table-container">
+            <table id="tabelaOrdens">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Unidade</th>
+                        <th>Local</th>
+                        <th>Descrição</th>
+                        <th>Tipo de Manutenção</th>
+                        <th>Prioridade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aqui serão inseridos os registros salvos -->
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+
+//ckeckboxes itens e subitens
+ function mostrarSubItens(checkbox) {
+        var itemId = checkbox.value.replace(/ /g, ''); // Remove espaços em branco do valor para criar um ID único
+        var subItemDiv = document.getElementById('subItem' + itemId);
+
+        if (checkbox.checked) {
+            subItemDiv.style.display = 'block';
+        } else {
+            subItemDiv.style.display = 'none';
+        }
+    }
+
+
+    flatpickr("#data", {
+        enableTime: false,
+        dateFormat: "d/m/Y",
+    });
+
+    flatpickr("#filtroData", {
+        enableTime: false,
+        dateFormat: "d/m/Y",
+        onChange: function(selectedDates, dateStr, instance) {
+            filtrarPorData(dateStr);
+        }
+    });
+
+    function previewFoto(input) {
+        var preview = document.getElementById('foto-preview');
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function atualizarUnidades() {
+        var regiao = document.getElementById("regiao").value;
+        var unidadesSelect = document.getElementById("unidade");
+
+        // Limpar as opções atuais
+        unidadesSelect.innerHTML = '<option value="">Selecione a unidade</option>';
+
+         // Adicionar as opções correspondentes à região selecionada
+        if (regiao === "Região 01") {
+        adicionarUnidadeOption("ADMINISTRAÇÃO REGIONAL - R. André de Barros, 750 - Centro - CEP: 80.010-080"," ");
+        adicionarUnidadeOption("CURITIBA CENTRO - R. André de Barros, 750 - Centro - CEP: 80.010-080"," ");
+        adicionarUnidadeOption("CURITIBA PORTÃO - R. Calixto Razolini, 215 - Portão - CEP: 81.070-060"," ");
+        adicionarUnidadeOption("CURITIBA - PAÇO DA LIBERDADE - Praça Generoso Marques, 189 - Centro - CEP: 80.020-230"," ");
+        adicionarUnidadeOption("CURITIBA - BELVEDERE - R. Kellers, 290 - Praça João Cândido - São Francisco - CEP: 81.410-100"," ");
+        adicionarUnidadeOption("CURITIBA - JD BOTÂNICO - R. Engº Ostoja Roguski, 350 - Jardim Botânico - CEP: 80.210-390"," ");
+        adicionarUnidadeOption("CAMPO LARGO - Lojas 1086/1087, piso térreo, City Center Outlet Premium, localizado na Rodovia BR-277, km 122, bairro Itaqui de Cima, CEP: 83.604-175"," ");
+        adicionarUnidadeOption("CASTRO - R. Alfredo Luiz de Mattos, 273 - Centro - CEP: 84.165-030"," ");
+        adicionarUnidadeOption("CAIOBÁ - R. Dr. José Pinto Rebelo Junior, 91 - Balneário Caiobá - CEP: 83.260-000"," ");
+        adicionarUnidadeOption("PARANAGUÁ - Al. Coronel Elysio Pereira, 1191 - Bairro Estradinha - CEP: 83.206-000"," ");
+        adicionarUnidadeOption("PONTA GROSSA - Av. João Manoel dos Santos Ribas, 313 - Centro - CEP: 84.051-410"," ");
+        adicionarUnidadeOption("PONTA GROSSA - ESTAÇÃO SAUDADE - R. Fernandes Pinheiro, 77 - Centro - CEP: 84.010-135"," ");
+        adicionarUnidadeOption("RIO NEGRO - R. Marçal José Pereira, 100 - Estação Nova - CEP: 83.880-000"," ");
+        adicionarUnidadeOption("SÃO JOSÉ DOS PINHAIS - Av. Rocha Pombo, 3028 - Cruzeiro - CEP: 83010-620"," ");
+        adicionarUnidadeOption("UNIDADE MÓVEL - BELEZA ESCOLA", "");
+        adicionarUnidadeOption("UNIDADE MÓVEL - GASTRONOMIA", "");
+        adicionarUnidadeOption("UNIDADE MÓVEL - INFORMÁTICA", "");
+        adicionarUnidadeOption("UNIDADE MÓVEL - PÃES E CONFEITOS", "");
+
+        // Adicionar outras unidades da Região 01 conforme necessário
+    } else if (regiao === "Região 02") {
+        adicionarUnidadeOption("FRANCISCO BELTRÃO - Av. Júlio Assis Cavalheiro, 2191 - Centro - CEP: 85.601-274"," ");
+        adicionarUnidadeOption("GUARAPUAVA - R. Padre Chagas, 3899 - Centro - CEP: 85.010-020"," ");
+        adicionarUnidadeOption("IRATI I - Av. Vicente Machado, 24 - Centro - CEP: 84.500-039"," ");
+        adicionarUnidadeOption("IRATI II (em construção) - R. Deputado Cezar Silvestre, 2000 - Pereiras - CEP: 84.500-620"," ");
+        adicionarUnidadeOption("PALMAS I - R. Dr. Bernardo Ribeiro Vianna, 903 - Centro - CEP: 85.555-000"," ");
+        adicionarUnidadeOption("PALMAS II (em construção) - R. Marechal Deodoro, 2036 - São José - CEP: 85.555-000"," ");
+        adicionarUnidadeOption("PATO BRANCO - Av. Tupi, 385 - Bortot - CEP: 85.504-000"," ");
+        adicionarUnidadeOption("PRUDENTÓPOLIS - R. Prefeito Antonio Witchemichen, 777 - Centro - CEP: 84.400-000"," ");
+        adicionarUnidadeOption("SÃO MATEUS DO SUL - R.Ledy Afonso Roderjan, 1191 - Centro - CEP: 83.900-000"," ");
+        adicionarUnidadeOption("UNIÃO DA VITÓRIA - R. Valentin Varacoski, 185 - Centro - 84.600-110"," ");
+        // Adicionar outras unidades da Região 02 conforme necessário
+
+    } else if (regiao === "Região 03") {
+        adicionarUnidadeOption("CASCAVEL - R. Recife, 2283 - Centro - CEP: 85.810-031"," ");
+        adicionarUnidadeOption("FOZ DO IGUAÇU - R. João Rouver, 160 - Centro - CEP: 85851-300"," ");
+        adicionarUnidadeOption("MARECHAL C. RONDON - R. Santa Catarina, 5736 - Vila Gaúcha - CEP: 85.960-000"," ");
+        adicionarUnidadeOption("MEDIANEIRA - R. Riachuelo, 1761 - Centro - CEP: 85.884-000"," ");
+        adicionarUnidadeOption("TOLEDO - R. Guaíra, 3332 - Jardim La Salle - CEP: 85.903-220"," ");
+        // Adicionar unidades da Região 03 conforme necessário
+
+        } else if (regiao === "Região 04") {
+        adicionarUnidadeOption("CAMPO MOURÃO - R. São Josafat, 1651 - Centro - CEP: 87.302-170"," ");
+        adicionarUnidadeOption("IVAIPORÃ - Av. Aparício Cardoso Bitencourt, 950 - Jardim Imperial  - CEP: 86.870-000"," ");
+        adicionarUnidadeOption("MARINGÁ - Av. Colombo, 6225 - Centro - CEP: 87.020-000"," ");
+        adicionarUnidadeOption("NOVA LONDRINA - Av. Fioravante Jose Montanher, 576 - Centro - CEP: 87.970-000"," ");
+        adicionarUnidadeOption("PARANAVAÍ - Av. Rio Grande do Norte, 1240 - Centro - CEP: 87.701-020"," ");
+        adicionarUnidadeOption("UMUARAMA - Av. Duque de Caxias, 5238 - Armazém - CEP: 87.504-040"," ");
+        // Adicionar unidades da Região 04 conforme necessário
+
+    } else if (regiao === "Região 05") {
+        adicionarUnidadeOption("APUCARANA - R. Gastão Vidigal, 185 - Jaboti - CEP: 86.800-050"," ");
+        adicionarUnidadeOption("TERRENO CLATÁRIO PORTUGAL - R. Desmb. Clotário Portugal, s/n,  Centro, CEP: 86.800-020"," ");
+        adicionarUnidadeOption("ARAPONGAS - R. Tico Tico Rei, 51 - Gleba Patrimônio Arapongas - CEP: 86.702-666"," ");
+        adicionarUnidadeOption("BELA VISTA DO PARAÍSO - Praça Brasílio de Araujo Filho, 41 - Centro - CEP: 86.130-000"," ");
+        // Adicionar unidades da Região 05 conforme necessário
+    }
+}
+
+    function adicionarUnidadeOption(nome, endereco) {
+        var unidadesSelect = document.getElementById("unidade");
+        var option = document.createElement("option");
+        option.text = nome + " - " + endereco;
+        option.value = nome;
+        unidadesSelect.add(option);
+    }
+
+    function enviar(metodo) {
+        var tipoManutencao = document.getElementById("tipoManutencao").value;
+        var regiao = document.getElementById("regiao").value;
+        var unidade = document.getElementById("unidade").value;
+        var local = document.getElementById("local").value;
+        var data = document.getElementById("data").value;
+        var descricao = document.getElementById("descricao").value;
+        var prioridade = document.getElementById("prioridade").value;
+
+        // Construir o corpo do e-mail com as informações
+        var corpoEmail = "Olá," + "\n" +
+            "Temos uma demanda de serviço, segue abaixo especificação da O.S:" + "\n" + "\n" +
+            "Tipo de Manutenção: " + tipoManutencao + "\n" +
+            "Região: " + regiao + "\n" +
+            "Unidade: " + unidade + "\n" +
+            "Local: " + local + "\n" +
+            "Data da Manutenção: " + data + "\n" +
+            "Descrição: " + descricao + "\n" +
+            "Prioridade: " + prioridade + "\n" + "\n" +
+            "Grato, " + "\n" +
+            " ";
+
+        var destinatario = "";
+
+        // Determinar os destinatários com base na região selecionada
+        if (regiao === "Região 01") {
+            destinatario = "regiao01@teste.com.br";
+        } else if (regiao === "Região 02") {
+            destinatario = "regiao02@teste.com.br";
+        } else if (regiao === "Região 03") {
+            destinatario = "regiao03@teste.com.br";
+        } else if (regiao === "Região 04") {
+            destinatario = "regiao04@teste.com.br";
+        } else if (regiao === "Região 05") {
+            destinatario = "regiao05@teste.com.br";
+        }
+
+        if (metodo === 'email') {
+            // Construir o link mailto com os parâmetros necessários
+            var subject = "Nova Ordem de Serviço - " + tipoManutencao + " - " + regiao + " - " + unidade;
+            var body = encodeURIComponent(corpoEmail);
+            var mailtoLink = "mailto:" + destinatario + "?subject=" + subject + "&body=" + body;
+
+            // Abrir o cliente de e-mail padrão com o link mailto
+            window.location.href = mailtoLink;
+        } else if (metodo === 'whatsapp') {
+            // Abrir o WhatsApp Web com uma mensagem pré-definida
+            var whatsappLink = "https://web.whatsapp.com/send?text=" + encodeURIComponent(corpoEmail);
+            window.open(whatsappLink);
+        }
+    }
+
+    function salvarOrdensServico() {
+        // Obter os dados do formulário
+        var tipoManutencao = document.getElementById("tipoManutencao").value;
+        var regiao = document.getElementById("regiao").value;
+        var unidade = document.getElementById("unidade").value;
+        var local = document.getElementById("local").value;
+        var data = document.getElementById("data").value;
+        var descricao = document.getElementById("descricao").value;
+        var prioridade = document.getElementById("prioridade").value;
+
+        // Validar se todos os campos foram preenchidos
+        if (!tipoManutencao || !regiao || !unidade || !local || !data || !descricao || !prioridade) {
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
+        // Criar um objeto representando a ordem de serviço
+        var ordemServico = {
+            tipoManutencao: tipoManutencao,
+            regiao: regiao,
+            unidade: unidade,
+            local: local,
+            data: data,
+            descricao: descricao,
+            prioridade: prioridade
+        };
+
+        // Obter os registros salvos do armazenamento local ou inicializar um array vazio
+        var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
+
+        // Adicionar a nova ordem de serviço aos registros
+        registros.push(ordemServico);
+
+        // Armazenar os registros atualizados no armazenamento local
+        localStorage.setItem("ordensServico", JSON.stringify(registros));
+
+        // Limpar os campos do formulário após salvar
+        document.getElementById("ordemServicoForm").reset();
+
+        // Atualizar a tabela de exibição dos registros
+        exibirRegistros();
+
+    	// Chamar a função para salvar o arquivo .txt
+    	salvarTxt();
+    }
+
+
+    function exibirRegistros() {
+        var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
+        var tabela = document.getElementById("tabelaOrdens").getElementsByTagName('tbody')[0];
+        tabela.innerHTML = ''; // Limpar a tabela antes de adicionar os registros atualizados
+
+        // Iterar sobre os registros e adicionar cada um à tabela
+        registros.forEach(function(ordemServico) {
+            var row = tabela.insertRow();
+            row.insertCell(0).innerHTML = ordemServico.data;
+            row.insertCell(1).innerHTML = ordemServico.unidade;
+            row.insertCell(2).innerHTML = ordemServico.local;
+            row.insertCell(3).innerHTML = ordemServico.descricao;
+            row.insertCell(4).innerHTML = ordemServico.tipoManutencao;
+            row.insertCell(5).innerHTML = ordemServico.prioridade;
+        });
+    }
+
+    function filtrarPorData(dataSelecionada) {
+        var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
+        var tabela = document.getElementById("tabelaOrdens").getElementsByTagName('tbody')[0];
+        tabela.innerHTML = ''; // Limpar a tabela antes de adicionar os registros filtrados
+
+        // Filtrar os registros que correspondem à data selecionada
+        var registrosFiltrados = registros.filter(function(ordemServico) {
+            return ordemServico.data === dataSelecionada;
+        });
+
+        // Adicionar os registros filtrados à tabela
+        registrosFiltrados.forEach(function(ordemServico) {
+            var row = tabela.insertRow();
+            row.insertCell(0).innerHTML = ordemServico.data;
+            row.insertCell(1).innerHTML = ordemServico.unidade;
+            row.insertCell(2).innerHTML = ordemServico.local;
+            row.insertCell(3).innerHTML = ordemServico.descricao;
+            row.insertCell(4).innerHTML = ordemServico.tipoManutencao;
+            row.insertCell(5).innerHTML = ordemServico.prioridade;
+        });
+    }
+
+    // Exibir os registros ao carregar a página
+    window.onload = exibirRegistros;
+
+async function salvarTxt() {
+        var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
+        var texto = "Data | Unidade | Local | Descrição | Tipo de Manutenção | Prioridade\n";
+
+        registros.forEach(function(ordemServico) {
+            texto += `${ordemServico.data} | ${ordemServico.unidade} | ${ordemServico.local} | ${ordemServico.descricao} | ${ordemServico.tipoManutencao} | ${ordemServico.prioridade}\n`;
+        });
+
+        try {
+            const handle = await window.showSaveFilePicker({
+                types: [
+                    {
+                        description: 'Arquivos de texto',
+                        accept: {
+                            'text/plain': ['.txt'],
+                        },
+                    },
+                ],
+                startIn: 'documents', // Defina o diretório inicial aqui
+            });
+
+            const writableStream = await handle.createWritable();
+            await writableStream.write(new Blob([texto], { type: "text/plain;charset=utf-8" }));
+            await writableStream.close();
+
+            console.log('Arquivo salvo com sucesso!');
+        } catch (err) {
+            console.error('Erro ao salvar o arquivo:', err);
+        }
+    }
+
+
+
+</script>
+
+<div id="footer">
+        <a href="https://apps.powerapps.com/play/e/default-e7fd764d-46ff-41ee-8c8c-e41e8a4968ed/a/a8fb1194-c36c-4346-9e4e-ab32fe960d37?tenantId=e7fd764d-46ff-41ee-8c8c-e41e8a4968ed&hint=e9b65ca3-488a-43e2-a03e-01e3765238f2&source=sharebutton&sourcetime=1712086787646" target="_blank" rel="noopener noreferrer">
+            <button class="button">Garantia de Novas Obras</button>
+        </a>
+        <a href="https://apps.powerapps.com/play/e/default-e7fd764d-46ff-41ee-8c8c-e41e8a4968ed/a/e523f0d0-f728-462d-9ca7-d2bf3b395674?tenantId=e7fd764d-46ff-41ee-8c8c-e41e8a4968ed&hint=2400a87f-70f4-41ae-bd96-744610f3981c&source=sharebutton&sourcetime=1712086815322" target="_blank" rel="noopener noreferrer">
+            <button class="button">Manutenção Preventiva</button>
+        </a>
+        <a href="https://apps.powerapps.com/play/e/default-e7fd764d-46ff-41ee-8c8c-e41e8a4968ed/a/74a6dea8-fc0e-4056-8f08-64afbc622194?tenantId=e7fd764d-46ff-41ee-8c8c-e41e8a4968ed&hint=cc5b435b-f9e7-4a7b-b4df-fb7d85ecc135&source=sharebutton&sourcetime=1712086838257" target="_blank" rel="noopener noreferrer">
+            <button class="button">Limpeza (por período)</button>
+        </a>
+        <a href="https://apps.powerapps.com/play/e/default-e7fd764d-46ff-41ee-8c8c-e41e8a4968ed/a/6630ef04-17b8-4daa-bbdd-3a2893bb29f5?tenantId=e7fd764d-46ff-41ee-8c8c-e41e8a4968ed&hint=ed35dd3c-7e62-4556-b374-12cd1d1aad05&source=sharebutton&sourcetime=1712086866910" target="_blank" rel="noopener noreferrer">
+            <button class="button">Limpeza (por material)</button>
+	<a href="AQUI SERÁ INSERIDO OUTRO LINK DE MANUT CORRETIVA">
+            <button class="button">Manutenção Corretiva</button>
+        </a>
+	<a href="https://senacpr-my.sharepoint.com/:b:/g/personal/david_venancio_pr_senac_br/EeOiUyvO_8NJgQ4GPYlnPUEBKmf1whqC6-qI2Ka6UzF14w?e=4Xd5wP">
+            <button class="button">Acesse o Manual de Manutenção das Unidades SENAC/PR</button>
+        </a>
+	<a href="https://intranet.pr.senac.br/Documentos_Compartilhados/CIN/020%20-%20MANUAL%20DE%20SERVI%C3%87OS%20DE%20LIMPEZA%20SENAC.pdf">
+            <button class="button">Acesse o Manual de Limpeza das Unidades SENAC/PR</button>
+        </a>
+    </div>
+
+</body>
+</html>
+
+
