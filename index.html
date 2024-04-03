@@ -107,6 +107,31 @@
         background-color: #ffa500;
     }
 
+ #tabelaOrdens {
+            background-color: #ffffff; /* Fundo branco */
+            position: relative; /* Posição fixa */
+	    top: 50px; /* Distância da parte superior da página */
+            bottom: 200px; /* Distância do fundo da página */
+            left: 50%; /* Centralizar horizontalmente */
+            transform: translateX(-50%); /* Centralizar horizontalmente */
+            width: 80%; /* Largura da tabela */
+            border-radius: 8px; /* Bordas arredondadas */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+
+        #tabelaOrdens th,
+        #tabelaOrdens td {
+            padding: 5px; /* Espaçamento interno */
+            text-align: left; /* Alinhamento do texto */
+        }
+
+        /* Estilos para a tabela responsiva */
+        @media only screen and (max-width: 600px) {
+            #tabelaOrdens {
+                width: 80%; /* Reduzir a largura para telas menores */
+            }
+        }
+
 </style>
 </head>
 <body>
@@ -122,9 +147,11 @@
     <form id="ordemServicoForm">
         <label for="tipoManutencao">Tipo de Manutenção:</label>
         <select id="tipoManutencao">
-            <option value="Preditiva">Manutenção Preditiva</option>
             <option value="Corretiva">Manutenção Corretiva</option>
-            <option value="Preventiva">Manutenção Preventiva</option>
+	    <option value="Preventiva">Manutenção Preventiva</option>
+	    <option value="Preditiva">Manutenção Preditiva</option>
+            
+            
         </select>
 
         <label for="regiao">Região:</label>
@@ -173,12 +200,14 @@
             <button type="button" onclick="salvarSolicitar()">Solicitar Aprovação</button>
         </div>
 
+
         <!-- Tabela para exibir os registros -->
         <div class="table-container">
             <table id="tabelaOrdens">
                 <thead>
                     <tr>
-                        <th>Data</th>
+                        <th>Nº O.S</th>
+		        <th>Data</th>
                         <th>Unidade</th>
                         <th>Local</th>
                         <th>Descrição</th>
@@ -192,10 +221,8 @@
             </table>
         </div>
 
-
-
-
     </form>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -412,24 +439,42 @@ function pedidoAprovacao() {
 }
 
 
-    function salvarOrdensServico() {
-    // Obter os dados do formulário
-        var tipoManutencao = document.getElementById("tipoManutencao").value;
-        var regiao = document.getElementById("regiao").value;
-        var unidade = document.getElementById("unidade").value;
-        var local = document.getElementById("local").value;
-        var data = document.getElementById("data").value;
-        var descricao = document.getElementById("descricao").value;
-        var prioridade = document.getElementById("prioridade").value;
+    function salvarOrdensServico(callback) {
+    /// Obter os dados do formulário
+    var tipoManutencao = document.getElementById("tipoManutencao").value;
+    var regiao = document.getElementById("regiao").value;
+    var unidade = document.getElementById("unidade").value;
+    var local = document.getElementById("local").value;
+    var data = document.getElementById("data").value;
+    var descricao = document.getElementById("descricao").value;
+    var prioridade = document.getElementById("prioridade").value;
 
         // Validar se todos os campos foram preenchidos
-        if (!tipoManutencao || !regiao || !unidade || !local || !data || !descricao || !prioridade) {
-            alert("Por favor, preencha todos os campos.");
-            return;
-        }
+    if (!tipoManutencao || !regiao || !unidade || !local || !data || !descricao || !prioridade) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
+
+/// Função para gerar um ID único para Ordem de Serviço
+function gerarIdUnico() {
+    const agora = new Date();
+    const ano = agora.getFullYear();
+    const mes = String(agora.getMonth() + 1).padStart(2, '0'); // Adiciona um zero à esquerda se o mês tiver apenas um dígito
+    const dia = String(agora.getDate()).padStart(2, '0'); // Adiciona um zero à esquerda se o dia tiver apenas um dígito
+    const hora = String(agora.getHours()).padStart(2, '0');
+    const minuto = String(agora.getMinutes()).padStart(2, '0');
+    const segundo = String(agora.getSeconds()).padStart(2, '0');
+    const milissegundo = String(agora.getMilliseconds()).padStart(3, '0'); // Adiciona zeros à esquerda se o milissegundo tiver menos de três dígitos
+
+    return `${ano}${mes}${dia}${hora}${minuto}${segundo}${milissegundo}`;
+}
+
+
 
         // Criar um objeto representando a ordem de serviço
         var ordemServico = {
+            id: gerarIdUnico(), // Usando a função gerarIdUnico() para gerar um identificador único
             tipoManutencao: tipoManutencao,
             regiao: regiao,
             unidade: unidade,
@@ -466,14 +511,15 @@ function pedidoAprovacao() {
 
         // Iterar sobre os registros e adicionar cada um à tabela
         registros.forEach(function(ordemServico) {
-            var row = tabela.insertRow();
-            row.insertCell(0).innerHTML = ordemServico.data;
-            row.insertCell(1).innerHTML = ordemServico.unidade;
-            row.insertCell(2).innerHTML = ordemServico.local;
-            row.insertCell(3).innerHTML = ordemServico.descricao;
-            row.insertCell(4).innerHTML = ordemServico.tipoManutencao;
-            row.insertCell(5).innerHTML = ordemServico.prioridade;
-        });
+             var row = tabela.insertRow();
+        row.insertCell(0).innerHTML = ordemServico.id; // Incluir o identificador na primeira coluna (oculta)
+        row.insertCell(1).innerHTML = ordemServico.data;
+        row.insertCell(2).innerHTML = ordemServico.unidade;
+        row.insertCell(3).innerHTML = ordemServico.local;
+        row.insertCell(4).innerHTML = ordemServico.descricao;
+        row.insertCell(5).innerHTML = ordemServico.tipoManutencao;
+        row.insertCell(6).innerHTML = ordemServico.prioridade;
+    });
     }
 
     function filtrarPorData(dataSelecionada) {
@@ -566,5 +612,3 @@ function salvarSolicitar() {
 
 </body>
 </html>
-
-
