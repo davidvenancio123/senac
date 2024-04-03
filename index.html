@@ -52,7 +52,7 @@
         margin-top: 10px;
     }
     button {
-        background-color: #4caf50;
+        background-color: #000066;
         color: white;
         padding: 10px 20px;
         border: none;
@@ -61,7 +61,7 @@
         margin-right: 10px;
     }
     button:hover {
-        background-color: #45a049;
+        background-color: #ffa500;
     }
     #foto-preview {
         margin-top: 10px;
@@ -80,8 +80,7 @@
         margin: 0 auto; /* Centraliza horizontalmente */
         width: 80%; /* Define a largura da tabela */
     }
-
-    #footer {
+	#footer {
         position: fixed;
         bottom: 0;
         width: 100%;
@@ -112,20 +111,15 @@
 </head>
 <body>
 
-
-
 <div id="header">
     <!-- Adicionando a imagem do cabeçalho -->
     <img src="LOGO GERAL.png" alt="Logo Geral">
-
 </div>
 
 <div class="container">
     <h2>Abrir Ordem de Serviço</h2>
 
-    
-
-<form id="ordemServicoForm">
+    <form id="ordemServicoForm">
         <label for="tipoManutencao">Tipo de Manutenção:</label>
         <select id="tipoManutencao">
             <option value="Preditiva">Manutenção Preditiva</option>
@@ -176,7 +170,7 @@
         <div class="button-container">
             <button type="button" onclick="enviar('email')">Enviar por E-mail</button>
             <button type="button" onclick="enviar('whatsapp')">Enviar por WhatsApp</button>
-            <button type="button" onclick="salvarOrdensServico()">Salvar Registros</button>
+            <button type="button" onclick="salvarSolicitar()">Solicitar Aprovação</button>
         </div>
 
         <!-- Tabela para exibir os registros -->
@@ -373,8 +367,53 @@
         }
     }
 
+     
+
+//novo comando para aprovar usando o botão de salvar registros concomitantemente
+
+function pedidoAprovacao() {
+    var tipoManutencao = document.getElementById("tipoManutencao").value;
+    var regiao = document.getElementById("regiao").value;
+    var unidade = document.getElementById("unidade").value;
+    var local = document.getElementById("local").value;
+    var data = document.getElementById("data").value;
+    var descricao = document.getElementById("descricao").value;
+    var prioridade = document.getElementById("prioridade").value;
+
+    // Construir o corpo do e-mail com as informações
+    var corpoEmail = "Olá," + "\n" +
+        "Uma nova ordem de serviço foi solicitada e aguarda sua aprovação:" + "\n" + "\n" +
+        "Tipo de Manutenção: " + tipoManutencao + "\n" +
+            "Região: " + regiao + "\n" +
+            "Unidade: " + unidade + "\n" +
+            "Local: " + local + "\n" +
+            "Data da Manutenção: " + data + "\n" +
+            "Descrição: " + descricao + "\n" +
+            "Prioridade: " + prioridade + "\n" + "\n" +
+            "Por favor, clique nos links abaixo para Aprovar ou Reprovar esta ordem de serviço:" + "\n" +
+        "Aprovar: [LINK_PARA_APROVAR]" + "\n" +
+        "Reprovar: [LINK_PARA_REPROVAR]" + "\n" + "\n" +
+        "Grato, " + "\n" +
+        " ";
+
+    var destinatario = "aprovador@teste.com.br";
+
+    // Construir o link mailto com os parâmetros necessários
+    var subject = "Nova Ordem de Serviço - " + tipoManutencao + " - " + regiao + " - " + unidade;
+    var body = encodeURIComponent(corpoEmail);
+    var mailtoLink = "mailto:" + destinatario + "?subject=" + subject + "&body=" + body;
+
+    // Abrir o cliente de e-mail padrão com o link mailto
+    window.location.href = mailtoLink;
+
+
+ //cima novo comando para aprovar usando o botão de salvar registros concomitantemente
+
+}
+
+
     function salvarOrdensServico() {
-        // Obter os dados do formulário
+    // Obter os dados do formulário
         var tipoManutencao = document.getElementById("tipoManutencao").value;
         var regiao = document.getElementById("regiao").value;
         var unidade = document.getElementById("unidade").value;
@@ -494,9 +533,14 @@ async function salvarTxt() {
     }
 
 
+ 
+
+function salvarSolicitar() {
+        salvarOrdensServico();
+        pedidoAprovacao();
+}
 
 </script>
-
 <div id="footer">
         <a href="https://apps.powerapps.com/play/e/default-e7fd764d-46ff-41ee-8c8c-e41e8a4968ed/a/a8fb1194-c36c-4346-9e4e-ab32fe960d37?tenantId=e7fd764d-46ff-41ee-8c8c-e41e8a4968ed&hint=e9b65ca3-488a-43e2-a03e-01e3765238f2&source=sharebutton&sourcetime=1712086787646" target="_blank" rel="noopener noreferrer">
             <button class="button">Garantia de Novas Obras</button>
