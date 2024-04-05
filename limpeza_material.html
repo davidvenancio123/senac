@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Limpeza por tipo de material</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+    }
+    #header {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    #header img {
+        max-width: 100%;
+        height: auto;
+    }
+    .container {
+        width: 80%; /* Defina a largura desejada */
+        margin: 0 auto; /* Centraliza horizontalmente */
+    }
+    h2 {
+        text-align: center;
+    }
+    #search-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    #search-input {
+        width: 60%;
+        padding: 8px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    #search-button {
+        background-color: #000066;
+        color: white;
+        padding: 8px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    #search-button:hover {
+        background-color: #ffa500;
+    }
+    table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: center; /* Alteração para centralizar o texto */
+    padding: 2px;
+    font-size: 12px; /* Definindo o tamanho da fonte */
+}
+th {
+    background-color: #f2f2f2;
+}
+
+.home-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #000066;
+            color: #fff;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            border-radius: 5px;
+            cursor: pointer; /* Define o cursor padrão como pointer */
+        }
+        .home-button:hover {
+            background-color: #ffa500;
+            cursor: pointer; /* Define o cursor como pointer quando o mouse está sobre o botão */
+        }
+        
+
+</style>
+</head>
+<body>
+    <a href="https://davidvenancio123.github.io/senac_teste/" class="home-button">
+        <span class="home-icon"></span> Página Inicial
+    </a>
+<div id="header">
+    <!-- Adicionando a imagem do cabeçalho -->
+    <img src="LOGO GERAL.png" alt="Logo Geral">
+</div>
+
+<div class="container">
+    <h2>LIMPEZA DAS UNIDADES DE ACORDO COM TIPO DE MATERIAL</h2>
+    <h2> (Vide Manual de Limpeza)</h2>
+
+    <!-- Adicionando a barra de pesquisa -->
+    <div id="search-container">
+        <input type="text" id="search-input" onkeyup="searchTable()" placeholder="Entre com alguma pesquisa (palavra-chave)">
+       
+    </div>
+
+    <!-- Tabela de problemas -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th style="width: 20%;">MATERIAL</th>
+                <th style="width: 30%;">AÇÃO</th>
+                <th style="width: 60%;">RECOMENDAÇÕES</th>
+                <th style="width: 50%;">FREQUÊNCIA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aqui você insere os dados da tabela -->
+            <tr>
+                <td>ACESSÓRIOS DE METAL</td>
+                <td>Limpar com pano úmido, água morna e detergente neutro. </td>
+                <td>Não utilizar produtos abrasivos ou produtos químicos</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>AZULEJOS E PASTILHAS                </td>
+                <td>Limpar com pano úmido, água e vinagre branco.</td>
+                <td>Utilizar vinagre para a limpeza destes revestimentos. Para dar brilho, utilizar limpa vidros e uma pano limpo e seco. Evitar o uso de alvejantes.                </td>
+                <td>Diária
+                    Semanal                    </td>                
+            </tr>
+            <tr>
+                <td>BRISES</td>
+                <td>Limpar com água de alta temperatura.</td>
+                <td>Usar um algodão macio ou pano para evitar arranhar e riscar a superfície.  Realizar limpeza sempre da parte superior para a parte inferior do brise.</td>
+                <td>Semestral</td>                
+            </tr>
+            <tr>
+                <td>CAIXA DE GORDURA</td>
+                <td>Limpeza com água quente e germicida.</td>
+                <td>Indícios que ser faz necessário executar a limpeza: odor forte, baixo escoamento do ralo da pia, caixa de gordura transbordando, grande infestação de baratas e outros insetos, entupimento do sifão e da tubulação que liga a pia à caixa de gordura.</td>
+                <td>Anual</td>                
+            </tr>
+            <tr>
+                <td>CALHAS, RUFOS E CODUTORES</td>
+                <td>Remoção de galhos, folhas e etc.</td>
+                <td>Fazer limpeza retirando os detritos que possam impedir o escoamento de água. Não fazer a limpeza de calhas em dias de chuva e/ou ocorrência de raios. Dependendo do tipo e inclinação do telhado o ideal é dar uma boa varrida nas telhas antes de limpar as calhas.</td>
+                <td>Mensal
+                    Semestral</td>                
+            </tr>
+            <tr>
+                <td>CHAPA DE ALUMÍNIO - ACM</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>Nunca utilizar material abrasivo, do tipo saponáceo, esponja de aço ou esponja abrasiva. Não utilizar ceras. Realizar limpeza sempre da parte superior para a parte inferior do revestimento</td>
+                <td>Anual</td>                
+            </tr>
+            <tr>
+                <td>CHAPA DE LAMINADO MELAMINICO - TS</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>É vedada a utilização de produtos químicos alcalinos, abrasivos ou ácidos para limpeza dos brises e estruturas.  Realizar limpeza sempre da parte superior para a parte inferior.</td>
+                <td>Anual</td>                
+            </tr>
+            <tr>
+                <td>CISTERNAS</td>
+                <td>Serviço a ser realizado por empresa especializada.</td>
+                <td>Um dia antes da lavagem, fechar o registro de entrada. Assim, a água da caixa atingirá a quantidade necessária para a limpeza, evitando o desperdício.</td>
+                <td>Semestral</td>                
+            </tr>
+            <tr>
+                <td>COBERTURA</td>
+                <td>Limpeza com vassoura e mangueira.</td>
+                <td>Fazer limpeza periódica retirando folhas, papéis e outros detritos que possam impedir o escoamento da água.</td>
+                <td>Anual</td>                
+            </tr>
+            <tr>
+                <td>CONCRETO INTERTRAVADO – PAVER</td>
+                <td>Limpar com água e detergente neutro</td>
+                <td>Qualquer produto de limpeza que seja aplicado deve ser enxaguado generosamente. Depois de limpa, cada área deve ser inspecionada para verificar se as juntas estão uniformes e preenchidas com a selagem necessária de areia.</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>DECK DE MADEIRA</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>Evitar usar produtos abrasivos para retirar sujeiras.</td>
+                <td>Semanal 
+                    Semestral</td>                
+            </tr>
+            <tr>
+                <td>ESPELHOS</td>
+                <td>Limpar com pano úmido, água morna e detergente neutro.</td>
+                <td>Não utilizar produtos ácidos ou alcalinos. Nunca borrifar líquidos diretamente no espelho. Não deixar água ou produtos químicos escorrer por trás do espelho ou mesmo em suas bordas. Após a limpeza, secar com pano seco e macio.</td>
+                <td>Diária</td>                
+            </tr>
+            <tr>
+                <td>ESQUADRIAS DE MADEIRA</td>
+                <td>Limpeza com pano macio e úmido</td>
+                <td>Não utilizar álcool.</td>
+                <td>Semanal Semestral Anual</td>                
+            </tr>
+            <tr>
+                <td>FORRO EM PVC</td>
+                <td>Limpar com pano úmido, água e detergente neutro.</td>
+                <td>Para remover vestígios de gordura do PVC deve-se usar apenas uma esponja e uma solução com detergente. Nunca utilizar sabão em pó, água sanitária pura, ácidos e solventes.</td>
+                <td>Diária Semanal</td>                
+            </tr>
+            <tr>
+                <td>FORRO MINERAL</td>
+                <td>Limpar as placas com espanador ou aspirador. Para perfis metálicos: água e detergente neutro.</td>
+                <td>Assegure-se de limpar em uma única direção.</td>
+                <td>Mensal</td>                
+            </tr>
+            <tr>
+                <td>FORROS E PAREDES EM DRYWALL</td>
+                <td>Limpar com pano úmido e detergente neutro.</td>
+                <td>Paredes de drywall nunca devem ser lavadas.</td>
+                <td>Mensal 
+                    Anual</td>                
+            </tr>
+            <tr>
+                <td>INOX</td>
+                <td>Limpar com pano úmido, água morna e detergente neutro.</td>
+                <td>Nunca utilizar água diretamente sobre o mobiliário/equipamento. Não utilizar produtos inflamáveis ou à base de cloro, ácidos, água sanitária, removedores de tintas, etc. Marcas de dedos podem ser removidas com álcool isopropílico</td>
+                <td>Diária
+                    Semanal
+                    Mensal</td>                
+            </tr>
+            <tr>
+                <td>INSTALAÇÕES ELÉTRICAS</td>
+                <td>Pano macio e seco.</td>
+                <td>Os serviços em eletricidade devem sempre atender a Norma Regulamentadora Nº 10 -SEGURANÇA EM INSTALAÇÕES E SERVIÇOS EM ELETRICIDADE. Os serviços de limpeza, são apenas serviços em superfícies não energizadas. Serviços em subestações, quadros de energia, instalações  energizadas ou sujeitas a energização serão realizadas apenas por  pessoal especializado e devidamente autorizado. Antes de qualquer intervenção, sempre desligar a chave geral  (disjuntor). Sempre desligar as instalações elétricas.</td>
+                <td>Semanal
+                    Mensal
+                    Semestral</td>                
+            </tr>
+            <tr>
+                <td>LAJE DE CONCRETO</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>Assegure-se de limpar em uma única direção.</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>LOUÇAS</td>
+                <td>Limpar com pano úmido, água, alvejante e detergente neutro.</td>
+                <td>Não utilizar produtos abrasivos. Produtos químicos fortes não devem entrar em contato com o assento.</td>
+                <td>Diária
+                    Semanal
+                    Mensal</td>                
+            </tr>
+            <tr>
+                <td>MOBILIÁRIO</td>
+                <td>Limpar com pano úmido, água e detergente neutro.</td>
+                <td>Nunca jogar água. Nunca utilizar produtos abrasivos. Não utilizar lustra móveis  em móveis de MDF. Não cortar diretamente em superfícies de MDF. Nunca subir nos móveis. Evitar apoiar em portas e gavetas e colocar peso sobre superfícies de vidro. Não deixar panos úmidos sobre os móveis. Não arrastar os móveis. Retirar o pó regularmente. Sempre verificar as instruções de uso dos equipamentos e mobiliários nos manuais dos fabricantes</td>
+                <td>Diária
+                    Semanal
+                    Mensal</td>                
+            </tr>
+            <tr>
+                <td>PINTURA  EXTERNA, TEXTURA E GRAFIATO</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>Remover o pó (no sentido do revestimento). Após a limpeza sempre secar a parede.</td>
+                <td>Semanal
+                    Mensal
+                    Anual</td>                
+            </tr>
+            <tr>
+                <td>PINTURA INTERNA</td>
+                <td>Limpar com pano úmido e detergente neutro.</td>
+                <td>Após a limpeza sempre secar a parede</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>PISO CARPETE</td>
+                <td>Limpar com aspirador de pó.</td>
+                <td>Nunca usar a vassoura para varrer o carpete</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>PISO CERÂMICO</td>
+                <td>Limpar com pano úmido, água morna e detergente neutro.</td>
+                <td>Nunca lavar os pisos com produtos abrasivos, sodas, ácidos e produtos à base de cloro. Evitar produtos à base de silicone ou cera.</td>
+                <td>Diária</td>                
+            </tr>
+            <tr>
+                <td>PISO DE BORRACHA</td>
+                <td>Limpar com pano úmido e detergente neutro.</td>
+                <td>Cera recomendada é incolor.</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>PISO DE CIMENTO ALISADO</td>
+                <td>Limpar com pano úmido, água morna e detergente neutro.</td>
+                <td>Nunca utilizar produtos que tenham base ácida – cloro, água sanitária, detergente multiação ou produtos à base de Álcool.</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>PISO DE CONCRETO</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>Se for um piso que acumule grandes quantidades de pó, areia, terra, recomenda-se que salpique um pouco de água antes de varrer. Deste modo evitará levantar o pó e será mais fácil de limpar, mas não exagerar ou só conseguirá fazer barro.</td>
+                <td>Diária</td>                
+            </tr>
+            <tr>
+                <td>PISO DE TACOS DE MADEIRA</td>
+                <td>Usar apenas vassoura de cerdas macias e limpar com pano úmido e detergente neutro</td>
+                <td>Certifique -se que o piso não ficará exposto diretamente ao sol.  Evitar arrastar mobiliários e equipamentos em cima do piso.</td>
+                <td>Diária</td>                
+            </tr>
+            <tr>
+                <td>PISO DRENANTE</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>Para desobstruir os orifícios das placas drenantes pode -se utilizar um aspirador de pó/água.</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>PISO EM GRANITO</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>Não utilizar ácidos para limpeza e evitar gordura,  perfume, tinta, sabonetes e outros que possam  prejudicar o piso</td>
+                <td>Diária 
+                    Semestra</td>                
+            </tr>
+            <tr>
+                <td>PISO EPÓXI</td>
+                <td>Limpar com pano úmido, água e detergente neutro.</td>
+                <td>Aplicar uma cera líquida base água para evitar a aderência de sujeira. Lustrar com uma enceradeira industrial. Manter sempre limpo, sem grãos de areia ou abrasivos que poderiam  riscar.</td>
+                <td>Diária</td>                
+            </tr>
+            <tr>
+                <td>PISO GRANITINA</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>Não utilizar ácidos para limpeza e evitar gordura, perfume, tinta, sabonetes e outros que possam prejudicar o piso.</td>
+                <td>Diária</td>                
+            </tr>
+            <tr>
+                <td>PISO INDUSTRIAL</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>Nunca utilizar produtos que tenham base ácida – cloro, água sanitária, detergente multiação ou produtos à base de Álcool.</td>
+                <td>Diária</td>                
+            </tr>
+            <tr>
+                <td>PISO LADRILHO HIDRÁULICO</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>Usar sempre detergente com um pH neutro.</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>PISO LAMINADO E ASSOALHO DE MADEIRA</td>
+                <td>Limpar com pano úmido e produto específico.</td>
+                <td>Nunca lavar pisos de madeira.  Evitar usar produtos abrasivos.</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>PISO PODOTÁTIL</td>
+                <td>Limpar com pano úmido e detergente neutro.</td>
+                <td>É vedado o uso de lavagem mecanizada do piso.</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>PISO PORCELANATO</td>
+                <td>Limpar com pano úmido e detergente neutro.</td>
+                <td>Jamais aplique o produto a ser utilizado para limpeza diretamente.  Evitar esponjas e produtos abrasivos.</td>
+                <td>Diária</td>                
+            </tr>
+            <tr>
+                <td>PISO VIBRO PRENSADO MARMORIZADO</td>
+                <td>Limpar com água, removedor acrílico, selador acrílico e detergente neutro.</td>
+                <td>Nunca utilizar água sanitária, ácidos, cloro, soda cáustica ou qualquer tipo de produto corrosivo, evitando danificar o piso e rejunte.  Nunca polir o piso sem antes limp á -lo .</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>PISO VINÍLICO</td>
+                <td>Limpar com pano úmido e detergente neutro.</td>
+                <td>Não utilizar produtos abrasivos para a limpeza. Esquecer os saponáceos, solventes, produtos químicos e palhas de aço. Nunca lavar pisos vinílicos</td>
+                <td>Diária</td>                
+            </tr>
+            <tr>
+                <td>PLACA CIMENTÍCIA</td>
+                <td>Limpar com pano úmido, água morna e detergente neutro.</td>
+                <td>Nunca utilizar produtos que tenham base ácida ou produtos à base de Álcool.</td>
+                <td>Anual</td>                
+            </tr>
+            <tr>
+                <td>PLACAS FOTO VOLTÁICAS E PAINÉIS SOLARES</td>
+                <td>Apenas água.</td>
+                <td>Somente utilizar atividades de limpeza e manutenção com o  sistema fotovoltaico totalmente desligado. Nunca utilizar equipamento ou qualquer instrumento abrasivo. Nunca utilizar qualquer equipamento ou ferramenta com  elementos pontiagudos duros, elementos rígidos ou metálicos. Nunca caminhar sobre os módulos fotovoltaicos. Não é recomendável utilizar pressurizador com jato.</td>
+                <td>Semestral</td>                
+            </tr>
+            <tr>
+                <td>PLACAS PERFURADAS</td>
+                <td>Limpar com água de alta temperatura.</td>
+                <td>Em hipótese alguma utilizar esponja de aço ou esponja abrasiva. Não utilizar produtos químicos alcalinos, abrasivos, saponáceos ou ácidos para limpeza                                                         Realizar limpeza sempre da parte superior para a parte inferior do brise</td>
+                <td>Anual</td>                
+            </tr>
+            <tr>
+                <td>POLICARBONATO</td>
+                <td>Limpar com água e detergente neutro.</td>
+                <td>Produtos abrasivos ou alcalinos fortes são proibidos</td>
+                <td>Mensal</td>                
+            </tr>
+            <tr>
+                <td>RALOS</td>
+                <td>Limpeza com  bicarbonato,  vinagre e água  quente.</td>
+                <td>Esperar o nível de água baixar e começar a fazer a limpeza do ralo retirando a grelha de proteção.</td>
+                <td>Anual</td>                
+            </tr>
+            <tr>
+                <td>REJUNTE</td>
+                <td>Limpar com água morna e detergente neutro.</td>
+                <td>Para a limpeza frequente, o ideal é escovar o rejunte com detergente e água morna ou quente.</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>REVESTIMENTOS ACÚSTICOS</td>
+                <td>Limpar com pano úmido e detergente neutro.</td>
+                <td>Evitar o excesso de água.  Laminados não devem ser encerados</td>
+                <td>Semanal</td>                
+            </tr>
+            <tr>
+                <td>TIJOLOS A VISTA</td>
+                <td>Limpar com solução de alvejante</td>
+                <td>Nunca misturar ácido e alvejante durante e limpeza</td>
+                <td>Semestral
+                    Anual</td>                
+            </tr>
+            <tr>
+                <td>VIDROS</td>
+                <td>Limpar com água morna, limpa vidros, detergente neutro e pano seco</td>
+                <td>Não limpar vidros no momento da incidência direta de luz solar.  Não usar álcool, desinfetantes, ceras e nem removedores.  Nunca utilizar jornal, já que a tinta pode dissolver e manchar os vidros da janela.  Não deve subir em objetos improvisados, tais como cadeiras, mesas ou caixas.</td>
+                <td>Mensal
+                    Semestral</td>                
+            </tr>
+                                 
+            
+        </tbody>
+    </table>
+
+
+
+</div>
+
+<script>
+// Função para pesquisar na tabela
+function searchTable() {
+  var input, filter, table, tr, td, i, j, txtValue;
+  input = document.getElementById("search-input");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("dataTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop através de todas as linhas da tabela e de todas as células de cada linha
+  for (i = 0; i < tr.length; i++) {
+    for (j = 0; j < 7; j++) { // 7 é o número de colunas na tabela
+      td = tr[i].getElementsByTagName("td")[j];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break; // Se encontrar um resultado, sai do loop interno
+        } else {
+          tr[i].style.display = "none"; // Se não encontrar, oculta a linha
+        }
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>
