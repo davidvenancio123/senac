@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garantia em Novas Obras</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+    }
+    #header {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    #header img {
+        max-width: 100%;
+        height: auto;
+    }
+    .container {
+        width: 80%; /* Defina a largura desejada */
+        margin: 0 auto; /* Centraliza horizontalmente */
+    }
+    h2 {
+        text-align: center;
+    }
+    #search-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    #search-input {
+        width: 60%;
+        padding: 8px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    #search-button {
+        background-color: #000066;
+        color: white;
+        padding: 8px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    #search-button:hover {
+        background-color: #ffa500;
+    }
+    table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: center; /* Alteração para centralizar o texto */
+    padding: 2px;
+    font-size: 12px; /* Definindo o tamanho da fonte */
+}
+th {
+    background-color: #f2f2f2;
+}
+
+.home-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #000066;
+            color: #fff;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            border-radius: 5px;
+            cursor: pointer; /* Define o cursor padrão como pointer */
+        }
+        .home-button:hover {
+            background-color: #ffa500;
+            cursor: pointer; /* Define o cursor como pointer quando o mouse está sobre o botão */
+        }
+        
+
+</style>
+</head>
+<body>
+    <a href="https://davidvenancio123.github.io/senac_teste/" class="home-button">
+        <span class="home-icon"></span> Página Inicial
+    </a>
+<div id="header">
+    <!-- Adicionando a imagem do cabeçalho -->
+    <img src="LOGO GERAL.png" alt="Logo Geral">
+</div>
+
+<div class="container">
+    <h2>GARANTIA EM NOVAS OBRAS SEGUNDO ABNT NBR 5476</h2>
+
+    <!-- Adicionando a barra de pesquisa -->
+    <div id="search-container">
+        <input type="text" id="search-input" onkeyup="searchTable()" placeholder="Entre com alguma pesquisa (palavra-chave)">
+       
+    </div>
+
+    <!-- Tabela de problemas -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th style="width: 40%;">SISTEMAS, ELEMENTOS, COMPONENTES E INSTALAÇÕES</th>
+                <th style="width: 20%;">GARANTIA NO ATO ENTREGA</th>
+                <th style="width: 20%;">GARANTIA ATÉ 1 ANO</th>
+                <th style="width: 20%;">GARANTIA ATÉ 2 ANOS</th>
+                <th style="width: 20%;">GARANTIA ATÉ 3 ANOS</th>
+                <th style="width: 20%;">GARANTIA ATÉ 5 ANOS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aqui você insere os dados da tabela -->
+            <tr>
+                <td>Automação de portões                </td>
+                <td>Funcionamento                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-                </td>
+                <td>-                </td>
+                <td>-                </td>
+            </tr>
+            <tr>
+                <td>Calhas Rufos Funilaria em geral                </td>
+                <td>-                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-                </td>
+                <td>-                </td>
+                <td>-                </td>
+            </tr>
+            <tr>
+                <td>Elevadores                </td>
+                <td>Funcionamento                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Esquadrias de aço                </td>
+                <td>Riscos, lascas, quebras, amassadas, arranhões, defeitos na pintura Funcionamento (abre/fecha)                </td>
+                <td>Fixação Oxidação Funcionamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Esquadrias de alumínio e de PVC                </td>
+                <td>Riscos, lascas, quebras, amassadas, arranhões, defeitos no acabamento Funcionamento (abre/fecha)                </td>
+                <td>Partes móveis (inclusive recolhedores de palhetas, motores e conjuntos elétricos de acionamento). Problemas de vedação, estanqueidade e funcionamento                </td>
+                <td>Borrachas, escovas, articulações, fechos e roldanas Acessórios, persiana                </td>
+                <td>-</td>
+                <td>Perfis de alumínio, fixadores e revestimentos em painel de alumínio                </td>
+            </tr> 
+            <tr>
+                <td>Esquadrias de madeira                </td>
+                <td>Riscos, lascas, quebras, rachaduras, arranhões, defeitos na pintura Funcionamento (abre/fecha)                </td>
+                <td>Empenamento Descolamento Fixação Funcionamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Estrutura principal (p.ex., estrutura de concreto armado, alvenaria estrutural e estrutura com pré-moldados), estruturas periféricas.                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Segurança, solidez e estabilidade global                </td>
+            </tr> 
+            <tr>
+                <td>Estruturas de cobertura e telhados.                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Segurança e integridade                </td>
+            </tr> 
+            <tr>
+                <td>Exaustão mecânica                </td>
+                <td>Funcionamento                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Fechaduras e ferragens em gera                </td>
+                <td>Amassados,
+                    quebras,
+                    arranhões,
+                    defeitos no
+                    acabamento
+                </td>
+                <td>Funcionamento Acabamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Forros de gesso                </td>
+                <td>Quebras, arranhões, riscos, defeitos no acabamento                </td>
+                <td>Fissuras por acomodação dos elementos estruturais e de vedação                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Forros de madeira                </td>
+                <td>Quebras, arranhões, riscos, defeitos no acabamento                </td>
+                <td>Empenamento, trincas na madeira e destacamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>     
+            <tr>
+                <td>Fundações, contenções e arrimos.                </td>
+                <td>-                </td>
+                <td>-               </td>
+                <td>-</td>
+                <td>-</td>
+                <td>Segurança, solidez, estabilidade, estanqueidade de fundações, contenções e arrimos                </td>
+            </tr>   
+            <tr>
+                <td>Guarda- corpos/corrimão                </td>
+                <td>-                </td>
+                <td>-               </td>
+                <td>-</td>
+                <td>-</td>
+                <td>Segurança e integridade                </td>
+            </tr>     
+            <tr>
+                <td>Iluminação de emergência                </td>
+                <td>-                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Impermeabilização                </td>
+                <td>-                </td>
+                <td>-               </td>
+                <td>-</td>
+                <td>-</td>
+                <td>Estanqueidade vazamento/infiltração                </td>
+            </tr>     
+            <tr>
+                <td>Instalações elétricas fios/cabos/eletrodutos (MATERIAL)                </td>
+                <td>-                </td>
+                <td>Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Instalações elétricas fios/cabos/eletrodutos (SERVIÇO)                </td>
+                <td>-                </td>
+                <td>-               </td>
+                <td>-</td>
+                <td>Instalação                </td>
+                <td>-                </td>
+            </tr>     
+            <tr>
+                <td>Instalações elétricas tomadas/interruptores/disjuntores
+                    /caixas e quadros (SERVIÇO)                                    </td>
+                <td>-                </td>
+                <td>-               </td>
+                <td>-</td>
+                <td>Instalação                </td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Instalações elétricas tomadas/interruptores/disjuntores/caixas e quadros (MATERIAL)                 </td>
+                <td>Espelhos ou acabamentos danificados ou mal colocados                </td>
+                <td>Equipamento (exceto situações que devem ser verificadas no ato da entrega do imóvel)                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>     
+            <tr>
+                <td>Instalações hidráulicas - louças/caixas de descarga/ bancadas (MATERIAL)                </td>
+                <td>Quebrados, trincados, riscados, manchados, entupimento. Funcionamento válvula de descarga                </td>
+                <td>Equipamento (exceto situações que devem ser verificadas no ato da entrega)                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Instalações hidráulicas - louças/caixas de descarga/ bancadas (SERVIÇO)                </td>
+                <td>-                </td>
+                <td>-               </td>
+                <td>-</td>
+                <td>Instalação Falha na vedação                </td>
+                <td>-                </td>
+            </tr>     
+            <tr>
+                <td>Instalações hidráulicas e gás – coletores, ramais, metais sanitários/sifões/li gações flexíveis/válvulas/registros/ralos (MATERIAL)                </td>
+                <td>Quebrados, trincados, riscados, manchados, entupidos                </td>
+                <td>Equipamento (exceto situações que devem ser verificadas no ato da entrega                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Instalações hidráulicas e gás – coletores, ramais, metais sanitários/sifões/li gações flexíveis/válvulas/registros/ralos (SERVIÇO)                </td>
+                <td>-                </td>
+                <td>-               </td>
+                <td>-</td>
+                <td>Instalação Falha na vedação                </td>
+                <td>-                </td>
+            </tr>     
+            <tr>
+                <td>Instalações hidráulicas e gás - colunas de água fria, colunas de água quente, tubos de queda de esgoto, colunas de gás                </td>
+                <td>-                </td>
+                <td>-               </td>
+                <td>-</td>
+                <td>-</td>
+                <td>Instalação Integridade e vedação                </td>
+            </tr> 
+            <tr>
+                <td>Interfones                </td>
+                <td>Funcionamento                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>     
+            <tr>
+                <td>Junta de dilatação                </td>
+                <td>-                </td>
+                <td>-               </td>
+                <td>Execução e aderência                </td>
+                <td>-</td>
+                <td>-                </td>
+            </tr> 
+            <tr>
+                <td>Motobombas, filtros                </td>
+                <td>Funcionamento                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>     
+            <tr>
+                <td>Outros equipamentos industrializados (outros)                </td>
+                <td>Funcionamento                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>      
+            <tr>
+                <td>Paredes de vedação, estruturas auxiliares, estrutura das escadarias internas ou externas, muros de divisa.                </td>
+                <td>-                </td>
+                <td>-               </td>
+                <td>-</td>
+                <td>-</td>
+                <td>Segurança e integridade                </td>
+            </tr>   
+            <tr>
+                <td>Pintura/verniz (interna/externa)                </td>
+                <td>Arranhões, riscos, defeitos no acabamento                </td>
+                <td>-               </td>
+                <td>Empolament o, descascame nto, esfarelamento, alteração de cor ou deterioração de acabamento                </td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>       
+            <tr>
+                <td>Piso cimentado, piso acabado em concreto, contrapiso                </td>
+                <td>-                </td>
+                <td>-               </td>
+                <td>-</td>
+                <td>Destacamen tos, fissuras, desgaste excessivo                </td>
+                <td>Estanqueidade de pisos molháveis                </td>
+            </tr>   
+            <tr>
+                <td>Pisos de madeira –assoalhos e decks                </td>
+                <td>Quebras, lascas, arranhões, riscos, machados, defeitos no acabamento ou mal fixados                </td>
+                <td>Empenamento trincas na madeira e destacamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>   
+            <tr>
+                <td>Porta Corta-Fogo                </td>
+                <td>Riscos, arranhões, defeitos na pintura, acessórios
+                    completos Funcionamento (abre/fecha)                                   </td>
+                <td>Dobradiças e molas                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>Integridade de portas e batentes                </td>
+            </tr>   
+            <tr>
+                <td>Pressurização das escadas                </td>
+                <td>-                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>   
+            <tr>
+                <td>Revestimentos de paredes e tetos internos em gesso liso/componentes de gesso acartonado                </td>
+                <td>Quebras, arranhões, riscos, defeitos no acabamento                </td>
+                <td>-               </td>
+                <td>Fissuras                </td>
+                <td>-</td>
+                <td>Má aderência do revestimento e dos componentes do sistema                </td>
+            </tr> 
+            <tr>
+                <td>Revestimentos de paredes, pisos e teto em pedras naturais (mármore, granito e outros)                </td>
+                <td>Quebras, arranhões, riscos, defeitos no acabamento ou polimento (quando for o caso)                </td>
+                <td>-               </td>
+                <td>Revestimentos soltos,greta dos, desgaste excessivo                </td>
+                <td>Estanqueida de de fachadas e pisos molháveis                </td>
+                <td>-                </td>
+            </tr>   
+            <tr>
+                <td>Revestimentos de paredes, pisos e tetos em azulejo/ cerâmica/ pastilhas                </td>
+                <td>Quebras, trincas, arranhões, riscos, manchados, tonalidades diferentes, defeitos no acabamento                </td>
+                <td>-               </td>
+                <td>Revestiment os soltos, gretados, desgaste excessivo.                </td>
+                <td>Estanqueida de de fachadas e pisos molháveis.                </td>
+                <td>-                </td>
+            </tr>   
+            <tr>
+                <td>Revestimentos de paredes, pisos e tetos externos em argamassa                </td>
+                <td>Quebras, arranhões, riscos, defeitos no acabamento                </td>
+                <td>-               </td>
+                <td>Fissuras                </td>
+                <td>-</td>
+                <td>Má aderência do revestimento e dos componentes do sistema                </td>
+            </tr>   
+            <tr>
+                <td>Revestimentos de paredes, pisos e tetos internos em argamassa                </td>
+                <td>Quebras, arranhões, riscos, defeitos no acabamento                </td>
+                <td>-               </td>
+                <td>Fissuras                </td>
+                <td>Estanqueida de de fachadas e pisos molháveis.                </td>
+                <td>Má aderência do revestimento e dos componentes do sistema                </td>
+            </tr>   
+            <tr>
+                <td>Revestimentos especiais (fórmica, plásticos, têxteis, pisos elevados, materiais compostos de alumínio)                </td>
+                <td>Quebras, arranhões, riscos, defeitos no acabamento                </td>
+                <td>-               </td>
+                <td>-</td>
+                <td>Aderência                </td>
+                <td>-                </td>
+            </tr>   
+            <tr>
+                <td>Selantes, silicones, componentes de juntas e rejuntamentos                </td>
+                <td>Falhas ou manchas                </td>
+                <td>Aderência                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>   
+            <tr>
+                <td>Sistema de combate a incêndio                </td>
+                <td>-                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>   
+            <tr>
+                <td>Sistema de proteção contra descargas atmosféricas                </td>
+                <td>-                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>   
+            <tr>
+                <td>Sistema de segurança patrimonial                </td>
+                <td>-                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>   
+            <tr>
+                <td>Sistemas de telefonia e televisão                </td>
+                <td>Funcionamento                </td>
+                <td>Instalação Equipamento                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>   
+            <tr>
+                <td>Vidros                </td>
+                <td>Riscados, lascados, trincados, quebrados, manchados ou com tonalidades diferentes                </td>
+                <td>Fixação Instalação                </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-                </td>
+            </tr>   
+                     
+            
+        </tbody>
+    </table>
+
+
+
+</div>
+
+<script>
+// Função para pesquisar na tabela
+function searchTable() {
+  var input, filter, table, tr, td, i, j, txtValue;
+  input = document.getElementById("search-input");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("dataTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop através de todas as linhas da tabela e de todas as células de cada linha
+  for (i = 0; i < tr.length; i++) {
+    for (j = 0; j < 7; j++) { // 7 é o número de colunas na tabela
+      td = tr[i].getElementsByTagName("td")[j];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break; // Se encontrar um resultado, sai do loop interno
+        } else {
+          tr[i].style.display = "none"; // Se não encontrar, oculta a linha
+        }
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>
