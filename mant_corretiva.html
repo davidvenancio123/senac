@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manutenção Corretiva</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+    }
+    #header {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    #header img {
+        max-width: 100%;
+        height: auto;
+    }
+    .container {
+        width: 80%; /* Defina a largura desejada */
+        margin: 0 auto; /* Centraliza horizontalmente */
+    }
+    h2 {
+        text-align: center;
+    }
+    #search-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    #search-input {
+        width: 60%;
+        padding: 8px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    #search-button {
+        background-color: #000066;
+        color: white;
+        padding: 8px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    #search-button:hover {
+        background-color: #ffa500;
+    }
+    table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: center; /* Alteração para centralizar o texto */
+    padding: 2px;
+    font-size: 12px; /* Definindo o tamanho da fonte */
+}
+th {
+    background-color: #f2f2f2;
+}
+
+</style>
+</head>
+<body>
+
+<div id="header">
+    <!-- Adicionando a imagem do cabeçalho -->
+    <img src="LOGO GERAL.png" alt="Logo Geral">
+</div>
+
+<div class="container">
+    <h2>PESQUISA DE MANUTENÇÃO CORRETIVA</h2>
+
+    <!-- Adicionando a barra de pesquisa -->
+    <div id="search-container">
+        <input type="text" id="search-input" onkeyup="searchTable()" placeholder="Entre com alguma pesquisa (palavra-chave)">
+       
+    </div>
+
+    <!-- Tabela de problemas -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th style="width: 10%;">LOCAL</th>
+                <th style="width: 15%;">PROBLEMA</th>
+                <th style="width: 15%;">RESPONSÁVEL</th>
+                <th style="width: 40%;">PROCEDIMENTO</th>
+                <th style="width: 30%;">RECOMENDAÇÕES</th>
+                <th style="width: 10%;">FREQUÊNCIA</th>
+                <th style="width: 10%;">OBS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aqui você insere os dados da tabela -->
+            <tr>
+                <td>ALAMBRADO</td>
+                <td>Telas rompidas e danificadas</td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada</td>
+                <td>Em caso de telas de alambrados danificadas com arames expostos ou tubos enferrujados ou quebrados, deverá ser contratado um serviço especializado para a substituição das telas danificadas. Caso haja risco de desabamento, isolar a área.</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>ÁREAS NÃO PAVIMENTADAS/ JARDIM</td>
+                <td>Falta de planejamento no plantio de árvores e arbustos, acarretando um aspecto desordenado e por vezes: problemas de levantamento de calçadas por raízes, entupimento de calhas com folhas ou de canaletas com terra.</td>
+                <td>Procedimento a ser avaliado por profissionais técnicos qualificados. Comunicar e solicitar apoio CIN – Coordenadoria de Infraestrutura , para solicitação de Laudo de Vistoria Técnica                </td>
+                <td>Elaboração de projeto paisagístico, tanto para implantação como para 
+                    reforma de jardim.                    </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>ÁREAS NÃO PAVIMENTADAS/ JARDIM
+                </td>
+                <td>Árvores e arbustos com galhos secos, entrelaçados, doentes ou 
+                    causando danos a elementos (muro, parede, calha). </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada</td>
+                <td>Executar a poda, sob orientação de profissional habilitado e com 
+                    ferramentas adequadas, retirando apenas os galhos necessários, 
+                    porém mantendo a sanidade e forma estética da planta. </td>
+                <td>-</td>
+                <td>-</td>            
+                <td>-</td>
+                </tr>
+            <tr>
+                <td>ÁREAS NÃO PAVIMENTADAS/ JARDIM                </td>
+                <td>Árvores e arbustos amarelados, de pequeno porte, mal desenvolvidos                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td>"Contatar profissional habilitado para investigar a causa do problema – 
+                    deficiência nutricional, acidez do solo, praga, doença, fatores 
+                    fisiológicos. Se identificada deficiência nutricional, efetuar adubação 
+                    com adubo químico granulado, contendo Nitrogênio (N), Fósforo (P) e 
+                    Potássio (K), na proporção 10:10:10, na quantidade recomendada no 
+                    rótulo do produto. Proceder mensalmente, nos meses chuvosos 
+                    (primavera e verão), manutenção da adubação alternando adubo 
+                    químico granulado (conforme recomendado acima) e adubo orgânico 
+                    (esterco curtido de ave – 1,5 a 2,0 kg/ m2 ou húmus de minhoca - 1,0 
+                    kg/m2). Em árvores e arbustos espalhar o adubo ao redor dos mesmos 
+                    no limite da projeção da copa (da sua sombra). Regar 
+                    abundantemente, caso não ocorra chuva após a adubação. No caso de 
+                    identificação pelo profissional habilitado de outras causas para o 
+                    problema, seguir sua recomendação. "</td>
+                <td>-</td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>ÁREAS NÃO PAVIMENTADAS/ JARDIM                </td>
+                <td>Gramados amarelados, com plantas invasoras (mato).                </td>
+                <td>Procedimento a ser seguido sem necessidade de ajuda externa                </td>
+                <td>Proceder mensalmente, nos meses chuvosos (primavera e verão), 
+                    manutenção da adubação alternando adubo químico granulado contendo Nitrogênio (N), Fósforo (P) e Potássio (K), na proporção 
+                    10:10:10, na quantidade recomendada no rótulo do produto e e 
+                    adubo orgânico (esterco curtido de ave – 1,5 a 2,0 kg/ m2 ou húmus 
+                    de minhoca - 1,0 kg/m2). Regar abundantemente, caso não ocorra 
+                    chuva após a adubação. As plantas invasoras devem ser controladas 
+                    periodicamente, durante o ano todo, de forma manual, uma vez que 
+                    o uso de herbicida, por sua toxicidade, não é recomendável em 
+                    ambiente escolar. A adubação e limpeza periódicas promovem um 
+                    melhor fechamento do gramado reduzindo o problema com plantas 
+                    invasoras. </td>
+                <td>-</td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>ÁREAS NÃO PAVIMENTADAS/ JARDIM                </td>
+                <td>Plantas com pragas ou doenças.                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td>Pela diversidade de plantas, pragas e doenças específicas de cada 
+                    espécie, fica inviável uma recomendação geral para este problema. O 
+                    ideal é contatar profissional habilitado para identificação da causa do 
+                    problema e recomendação de solução. </td>
+                <td>Deve-se evitar o uso de inseticidas ou fungicidas químicos pelo risco 
+                    de intoxicação de pessoas e contaminação do meio ambiente. 
+                    Usar preferencialmente produtos biológicos (lagarticida a base de 
+                    Bacillus thuringiensis, por exemplo) ou formulações a base de fumo ou 
+                    timbó. 
+                    No caso do uso de agrotóxico ser o único meio para solução do 
+                    problema, sua aplicação deve sempre seguir as recomendações do 
+                    profissional habilitado e ser efetuada no período de férias escolares. </td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>ÁREAS NÃO PAVIMENTADAS/ JARDIM                </td>
+                <td> Corte de árvores.                 </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td>O corte de árvores deve ser efetuado sob supervisão de profissional 
+                    habilitado de forma a ser planejado, manter a funcionalidade e 
+                    estética do jardim e evitar acidentes. </td>
+                <td>                     Antes do corte, informar-se das regras junto aos órgãos ambientais 
+                    para atender a legislação municipal, estadual e federal. 
+                     Para retirada dos tocos remanescentes, perfurá-los com furadeira 
+                    manual, preenchendo o furo com óleo queimado para apodrecimento 
+                    dos mesmos, facilitando sua retirada. </td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>COBERTURA                </td>
+                <td> Deformações das estruturas em madeira e fendilhamentos 
+                    (aberturas de trincas junto a fixações e emendas); 
+                     Deslocamentos, desalinhamentos e quebras de telhas;
+                     Corrosão de parafusos de fixação para telhas de fibrocimento; 
+                     Ressecamentos das borrachas de vedação; 
+                     Ressecamentos de vedantes de calhas e rufos (ex: PU etc.); 
+                     Destacamento de rufos de encosto; 
+                     Descolamento de pintura em rufos de ferro galvanizado; 
+                     Corrosão de rufos e calhas metálicos; 
+                     Transbordamentos e entupimentos de calhas e ralos.                     </td>
+                <td>Procedimento a ser seguido sem necessidade de ajuda externa                </td>
+                <td>" Substituir elementos de madeira que apresentam apodrecimentos ou 
+                    deformações excessivas, além de fendilhamentos. A substituição 
+                    desses elementos deve ser feita por profissional especialista, pois 
+                    incorre em uma reforma estrutural no telhado. 
+                     Executar manutenção periódica nos telhados envolvendo atividades 
+                    de inspeção, substituição de parafusos oxidados e corroídos, 
+                    borrachas de vedação, telhas quebradas, além de executar pinturas 
+                    periódicas em calhas e rufos e verificação com a devida substituição 
+                    de vedantes e silicone. 
+                     Fazer inspeções periódicas a fim de verificar quaisquer frestas no 
+                    telhado, bem como telhas quebradas. 
+                     Deve-se proceder a limpeza de calhas, ralos e lajes de cobertura, 
+                    (conforme MANUAL DE LIMPEZA DO SENAC), a fim de evitar
+                    entupimentos de coletores (ralos) e eventuais transbordamentos de 
+                    calhas, empoçamentos e infiltrações. 
+                     Executar o reaperto dos parafusos de fixação das telhas de 
+                    fibrocimento e outras que possuam esse sistema de fixação, desde 
+                    que se cuide para não se apertar excessivamente os mesmos, gerando 
+                    esforços e trincas nas telhas.  No caso de destacamentos de rufos de encosto, pode-se observar 
+                    duas maneiras de executar o chumbamento e fixação dos mesmos em 
+                    paredes de alvenaria: 
+                    Primeiro modo (antigo): chumbamento do rufo na alvenaria e 
+                    completando depois com o revestimento. Observar que o término do 
+                    rufo deve estar na depressão da onda da telha no telhado. 
+                    Segundo modo: fazer a parede de alvenaria revestida com argamassa, 
+                    fazer corte de maquita correspondente à virada superior da chapa do 
+                    rufo, aparafusar, completar com mastique. Parafusar o trecho vertical 
+                    do rufo na parede revestida e aplicar mastiques nos parafusos de 
+                    fixação. 
+                     Os componentes de madeira que ficam expostos à chuva e sol 
+                    precisam receber aplicações de stain ou verniz do tipo marítimo. O 
+                    stain é um produto impregnante que protege a madeira dos raios 
+                    solares e fungos, e deve ser renovado a cada dois anos se a edificação 
+                    estiver localizada no litoral. 
+                     No caso de estrutura metálica, recomenda-se fazer uma inspeção 
+                    periódica recomendada pelo fabricante/construtor, para ver se há 
+                    algum ponto de corrosão, principalmente nas áreas de solda, que são 
+                    mais vulneráveis. 
+                    Em caso afirmativo, deve-se lixar manualmente a superfície atingida, 
+                    aplicar uma camada de primer epóxi e pintar com tinta à base de 
+                    poliuretano ou epóxi. 
+                     As telhas devem ser limpas e o limo que se forma sobre elas deve ser 
+                    removido com escovas de cerdas duras e água sanitária diluída em 
+                    água. 
+                     Para telhas cerâmicas não esmaltadas, pode-se proceder à pintura 
+                    com resina acrílica ou silicone, impermeabilizando-a a fim de evitar a 
+                    formação de limo e acúmulo de sujeiras. 
+                     As telhas de concreto devem ser limpas com água sob pressão, sem 
+                    uso de produto químico. Para estas telhas deve-se observar as 
+                    emendas e juntas, bem como sistemas de impermeabilização 
+                    executados, a fim de identificar possíveis rompimentos, 
+                    ressecamentos e outras anomalias que permitam a passagem de 
+                    águas. 
+                    </td>
+                <td> Tráfego correto de pessoas da manutenção sobre o telhado (sempre 
+                    andar sobre tábuas, as quais nunca devem ser posicionadas no meio 
+                    das telhas). 
+                     Nunca trafegar sobre telhas úmidas ou molhadas. 
+                     Observações sobre uso de silicones em calafetações de rufos e outras 
+                    Chapas metálicas: 
+                     Para o uso de silicone com vida útil entre um a três anos, a 
+                    manutenção corretiva deverá estar programada de acordo com a vida útil do produto devendo, também, existir periodicamente inspeções 
+                    visuais a fim de determinar desgastes excessivos ou perdas de 
+                    desempenho.
+                     Para a aplicação dos silicones, a superfície deverá estar limpa, isenta 
+                    de poeira e restos de tintas, a fim de garantir a perfeita aderência do 
+                    produto. 
+                     Para os rufos metálicos, deve-se observar, também, a periodicidade 
+                    de pintura, incluindo limpeza, aplicação de fundo anticorrosivo e tinta 
+                    de alto cobrimento. Importante frisar que, quando a revisão das 
+                    calafetações em silicone, a pintura deverá ter acontecido 
+                    antecipadamente, visto que não é recomendável a aplicação de tinta 
+                    sobre o silicone. 
+                     Se houver a instalação de equipamentos, vedar todos os parafusos de 
+                    forma adequada, além de verificar a instalação correta de rufos.                    </td>
+                <td>Verificações periódicas - Inspeções visuais a cada 06 meses;                </td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>EQUIPAMENTOS: AQUECEDORES DE ÁGUA                </td>
+                <td>Manutenção deverá ser realizada por empresa especializada;                 </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td>Manutenção deverá ser realizada por empresa especializada;                 </td>
+                <td>-</td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>            <tr>
+                <td>FORROS                </td>
+                <td>Placas manchadas                </td>
+                <td>Procedimento a ser seguido sem necessidade de ajuda externa                </td>
+                <td> Substituir placas manchas e/ou danificadas.                </td>
+                <td> Se placas ou peças do revestimento se destacarem, deverá ser retirado o revestimento de toda a área em volta e verificar a existência ou não de problemas na estrutura.  Em caso de aparecimento de manchas, deverá ser verificado possíveis infiltrações no forro</td>
+                <td> Inspeções visuais a cada 06 meses;
+                </td>            
+                <td>-</td>
+                </tr>
+            <tr>
+                <td>GRADES DE FERRO                </td>
+                <td>Montantes instáveis.                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td> Desmontar o gradil no trecho abalado;  retirar o montante e o bloco de base;  refazer o bloco de base; chumbar novamente o montante;  aterrar o bloco e remontar o gradil.                </td>
+                <td>-</td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>GRADES DE FERRO                </td>
+                <td>Peças complementares instáveis.                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td> Retirar as peças abaladas;  Verificar se as peças retiradas estão danificadas, neste caso substituí-las; caso contrário, recolocas as peças fazendo a fixação em pontos diferentes da fixação original.                </td>
+                <td> Para os demais problemas ocorrentes em grades de ferro (ferrugem ou pintura descascada) seguir os mesmos procedimentos apresentados para portões de ferro e tela.                </td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>INSTALAÇÕES DE GÁS / CENTRAL DE GLP                </td>
+                <td> Vazamentos de gás pelas tubulações, conexões, válvulas, etc.; 
+                 Corrosão nas tubulações; 
+                    Proximidade de instalações elétricas junto a tubulações de gás. </td>
+                <td>Procedimento a ser avaliado por profissionais técnicos qualificados. Comunicar e solicitar apoio CIN – Coordenadoria de Infraestrutura , para solicitação de Laudo de Vistoria Técnica                </td>
+                <td>" A avaliação periódica é realizada por meio de verificações na central 
+                    de GLP, destinadas a manter o correto desempenho de todos os seus 
+                    componentes, constando também as providências a serem tomadas 
+                    para execução da manutenção preventiva naqueles componentes que 
+                    possuem vida útil preestabelecida ou que possivelmente poderiam 
+                    apresentar problemas de fadiga, regulagem ou funcionamento. 
+                     A avaliação periódica deve registrar os resultados e as tarefas que 
+                    devem ser executadas com a definição dos respectivos responsáveis, 
+                    de forma que seja mínima a possibilidade de ocorrer alguma falha de 
+                    qualquer dos componentes da central de GLP, uma vez colocada em 
+                    funcionamento. 
+                     A avaliação periódica tem como objetivo garantir que: a) a tubulação 
+                    e os acessórios encontrem-se com acesso desobstruído e 
+                    devidamente sinalizados; b) todas as válvulas e dispositivos de 
+                    regulagem e segurança estejam íntegros e operacionais; funcione c) 
+                    tubos, conexões e interligações com recipientes não apresentem 
+                    vazamento; d) as tubulações estejam pintadas totalmente, inclusive 
+                    com relação aos suportes empregados; e) os dispositivos de controle 
+                    de pressão usados nas tubulações tenham sido verificados quanto à 
+                    sua eficácia e ao seu funcionamento; f) sejam inspecionados os pontos 
+                    com flanges e plugues/caps da rede; 
+                     O resultado da avaliação e manutenção deve ser registrado e deve 
+                    estar disponível para verificação junto à documentação técnica da 
+                    central de GLP. 
+                     As pessoas que efetuam a manutenção dos sistemas de GLP devem ser 
+                    profissionais qualificados e treinadas sobre os perigos do sistema e 
+                    nos procedimentos de manutenção e de ensaio aplicáveis à instalação. "
+                    </td>
+                <td> Não utilizar a central de GLP e Centrais de medidores como depósito 
+                    de materiais de qualquer natureza. Tais centrais deverão possuir 
+                    ventilação natural permanente.
+                     Verificar o prazo de validade das mangueiras flexíveis, trocando-as 
+                    quando necessário.
+                     Em caso de indícios de vazamento de gás ou corrosão grave, deve ser 
+                    realizada inspeção imediata e tomadas providências aplicáveis. 
+                     No caso de troca da empresa fornecedora de gás, troca de 
+                    componentes, alteração da rede de alimentação ou constatação de 
+                    desgastes críticos deve ser realizado teste de estanqueidade 
+                    pneumático com 0,7 Mpa mínimo. 
+                     Quando a central de GLP for desativada, deve-se observar o 
+                    atendimento de condições de segurança e adotar ações, quando 
+                    necessário, em relação aos recipientes, rede de alimentação, linha e a 
+                    tomada de abastecimento remoto, quando existirem.
+                    </td>
+                <td>Manutenções preventivas – a cada 05 anos.
+                </td>            
+                <td>As instalações de gás são compostas pelo conjunto de tubulações e equipamentos, aparentes ou embutidos, destinados ao transporte e controle do fluxo de gases em uma edificação. Assim, os componentes do sistema de instalações de gás são: tubulações, registros, válvulas e medidores de vazão.                </td>
+            </tr>
+            <tr>
+                <td>INSTALAÇÕES HIDRAULICAS - SANITÁRIAS                </td>
+                <td>Corrosão de tubulações hidráulicas em ferro galvanizado; 
+                     Deformações em tubulações em PVC; 
+                     Vazamentos diversos em tubulações; 
+                     Deterioração das tampas de reservatórios de água; 
+                     Reservatórios de água apoiados diretamente sobre o solo ou 
+                    enterrados; 
+                     Presença de tubulações de esgoto dentro de reservatórios de água; 
+                     Falta de pintura nas tubulações ou falta de repintura; 
+                     Obstrução interna de tubos devido à falta de replantio de árvores e 
+                    outras plantas em jardins ou jardineiras. 
+                    </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td> Desinfecção e limpeza dos reservatórios e tubulações; (conforme 
+                    MANUAL DE MANUTENÇÃO DAS UNIDADES SENAC/PR) 
+                     Nunca proceder à ligação de tubulações de redes de esgoto em redes 
+                    de águas pluviais/chuvas; 
+                     Limpar e desobstruir ralos, calhas e grelhas de coleta de águas pluviais 
+                    periodicamente; (; (conforme MANUAL DE MANUTENÇÃO DAS UNIDADES SENAC/PR
+                     Limpar ralos internos, sifões de pias e lavatórios destinados à coleta 
+                    de esgotos, a fim de não haver entupimentos ; (conforme MANUAL DE MANUTENÇÃO DAS UNIDADES SENAC/PRos com materiais incompatíveis ou, ainda, 
+                    proceder a reparos de vazamentos em conexões ou trechos de 
+                    tubulações com fissuras com materiais do tipo durepóxi.                    </td>
+                <td>-</td>
+                <td>Verificações periódicas - Inspeções visuais a cada 03 meses;                </td>            
+                <td>As instalações hidráulicas são compostas por um conjunto de tubulações e 
+                    equipamentos, aparentes ou embutidos, destinado ao transporte e controle de 
+                    fluxo de água, esgoto e demais fluidos em uma edificação, conforme projeto 
+                    elaborado de acordo com as normas técnicas da ABNT vigentes. 
+                    Os sistemas que compõem as instalações hidráulicas são: Água fria; Água quente; 
+                    Esgoto; Águas pluviais; Sistema de combate a incêndio. 
+                    Os serviços de manutenção de instalações hidráulicas e sanitárias, de preferência, 
+                    serão realizados por profissional ou empresa especializada, ou pelo fabricante do 
+                    equipamento.  </td>
+            </tr>
+            <tr>
+                <td>MURO DE ALVENARIA                </td>
+                <td>Trincas                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td>
+                     No caso de alvenaria revestida, verificar se a trinca ocorre nas duas 
+                    faces do muro. Se a ocorrência for em apenas uma face, trata-se de 
+                    trinca em revestimento; proceder seguindo instruções do capítulo 
+                    sobre revestimentos. 
+                     Se a trinca for constatada nas duas faces, significa que há um recalque 
+                    (abaixamento) da fundação, proceder da seguinte maneira: primeiro 
+                    quebrar um pouco a trinca e preencher com material flexível (silicone, 
+                    asfalto ou material elástico como emborrachado ou espuma expansiva 
+                    em spray). 
+                    </td>
+                <td>" 
+                     Se houver o reaparecimento da trinca, comunicar a CIN para avaliação 
+                    técnica.                    </td>
+                <td>Inpeções visuais a cada 6 meses                </td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>MURO DE ALVENARIA                </td>
+                <td>Peças/tijolos soltos                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td>Caso a peça esteja intacta, proceder da seguinte maneira: retirar a 
+                    peça e remover toda a argamassa remanescente, tanto da peça 
+                    quanto da cavidade; molhar a superfície abundantemente; recolocar 
+                    a peça, assentando-a com argamassa de cimento e areia (1 volume de 
+                    cimento para 3 volumes de areia). 
+                     Caso a peça esteja danificada, prosseguir da mesma maneira descrita 
+                    anteriormente, porém com a substituição da peça danificada por uma 
+                    em perfeitas condições.                     </td>
+                <td>Nunca se devem emendar peças partidas nem assentar partes de peças quebradas.                </td>
+                <td>Inpeções visuais a cada 6 meses                </td>            
+                <td>-</td>
+            </tr>            <tr>
+                <td>MURO DE ALVENARIA                </td>
+                <td>Abaulamentos                </td>
+                <td>Procedimento a ser avaliado por profissionais técnicos qualificados. Comunicar e solicitar apoio CIN – Coordenadoria de Infraestrutura , para solicitação de Laudo de Vistoria Técnica                </td>
+                <td>Em caso de abaulamentos de muros de alvenaria, providenciar o 
+                    escoramento provisório assim como a interdição da área através do 
+                    isolamento com tapumes, e solicitar uma avaliação técnica urgente. </td>
+                <td>-</td>
+                <td>Inpeções visuais a cada 6 meses                </td>            
+                <td>-</td>
+                </tr>
+            <tr>
+                <td>MURO PALITO                </td>
+                <td>Peças soltas ou danificadas                 </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td> Em caso de peças (“palitos”) danificados, abaulados, com estrutura 
+                    aparente ou na constatação de espaços que possibilitem a invasão do 
+                    espaço escolar, deverá ser contratado um serviço especializado para 
+                    concretar o trecho danificado. 
+                    Em casos extremos (muro muito danificado reconstruir o muro em 
+                    alvenaria. </td>
+                <td> Caso haja risco de desabamento, isolar a área.                 </td>
+                <td>Inpeções visuais a cada 6 meses                </td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>PAREDES E ESTRUTURA                </td>
+                <td>Trincas/Rachadura/Fenda                </td>
+                <td>Procedimento a ser avaliado por profissionais técnicos qualificados. Comunicar e solicitar apoio CIN – Coordenadoria de Infraestrutura , para solicitação de Laudo de Vistoria Técnica                </td>
+                <td> Avaliação de profissional técnico habilitado.                </td>
+                <td> Identificar se as mesmas encontram-se em elementos estruturais (lajes, vigas, pilares ou alvenaria portante); Verificar se a peça lesada está submetida, por algum agente externo (presença de água, por exemplo), a um processo de deterioração progressiva (maresia, por exemplo);  Verificar a estabilidade ou progresso da anomalia, identificando se a mesma é ativa (que ainda está se movimentando) ou passiva (a movimentação ocorreu e já se estabilizou). Há diversos processos de controle, sendo os mais práticos e comuns:  Preenchimento da abertura com selo de gesso. O fissuramento do gesso indica a continuidade da movimentação;  Fixação de plaqueta de vidro no local, com marcas de referências, observando-se o eventual deslocamento desta;  Marcação dos limites da lesão com lápis grosso ou tinta, observando-se alteração como correr do tempo;  Verificar a magnitude da abertura. Recomenda-se que em qualquer caso onde sejam observadas mais largas do que a espessura de uma unha (0,5mm), recorra-se a um profissional habilitado e qualificado;  NÃO retirar total ou parcialmente quaisquer elementos estruturais, pois pode abalar a solidez e segurança da edificação;  NÃO sobrecarregar as estruturas e paredes além dos limites normais de utilização previstos no projeto, pois esta sobrecarga pode gerar fissuras ou até comprometer os elementos estruturais e de vedação; Antes de perfurar as paredes, consulte os projetos e detalhamentos do seu imóvel, evitando deste modo a perfuração de vigas, pilares, e também tubulações de água, energia elétrica ou gás, nelas embutidas.                </td>
+                <td> Inspeções visuais a cada 06 meses;                </td>            
+                <td> Trinca: é uma abertura em forma de linha que aparece na superfície de qualquer material sólido, proveniente de evidente ruptura de parte de sua massa, com espessura de 0.5 milímetro até 1.0milímetro; Quando a flexibilidade do sistema reticulado, por problemas patológicos, apresenta riscos, surgem as rachaduras e as fendas, ambas de maior gravidade, se comparadas às fissuras e trincas, recomendando-se uma consulta junto a um engenheiro ou arquiteto, especialistas e estudiosos da matéria;  Rachadura: é uma abertura expressiva que aparece na superfície de qualquer material sólido proveniente de acentuada ruptura de sua massa, podendo-se “ver” através dela e cuja espessura varia de 1,0 milímetro até 1,5 milímetros.  Fenda: é uma abertura expressiva que aparece na superfície de qualquer material sólido, proveniente de acentuada ruptura de sua massa, causando sua divisão
+                </td>
+            </tr>
+            <tr>
+                <td>PINTURA EXTERNA                </td>
+                <td>Sujeiras crônica                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td>Manutenção Pinturas externas – Lavagem por hidrojateamento a cada 03 anos; Pintura a cada 05 anos;                </td>
+                <td> Caso seja necessário efetuar reparos ou retoques de pintura, pinte a parede por inteiro até uma descontinuidade (como um canto), pois a tinta sofre um envelhecimento natural. Retocar somente uma parte da parede pode causar diferença de aspecto, textura e cor entre as partes.  Se existirem patologias, como: mofo, descascamento, trincas, fissuras, irregularidades: estas devem ser corrigidas.  Também é importante lixar as paredes antes de fazer a repintura. Isso irá garantir a aderência do produto utilizado como acabamento e a uniformidade em sua absorção.                </td>
+                <td>Inspeções visuais anuais;                </td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>PINTURA INTERNA                </td>
+                <td>Descantascamento da tinta                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td>Manutenção Pinturas internas – de acordo com a necessidade de reparos e estado de conservação dos ambientes.                </td>
+                <td>-</td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>PINTURA LOGOMARCA SENAC                </td>
+                <td>Desbotamento                </td>
+                <td>Procedimento a ser seguido sem necessidade de ajuda externa                </td>
+                <td>Manutenção pintura ou recomposição                </td>
+                <td>"(versão 2024)
+                    AZUL: Escala Pantone 288C
+                    LARANJA ESCURO: Escala Pantone 144C 
+                    LARANJA CLARO: Escala Pantone 144C em 55%"</td>
+                <td>Inspeções visuais anuais;                </td>            
+                <td>Verifique junto ao depto de marketing                </td>
+            </tr>
+            <tr>
+                <td>PISOS DE MADEIRA                </td>
+                <td>Frestas entre tábuas ou tacos (rejuntamento), mancha em peças                </td>
+                <td>Procedimento a ser seguido sem necessidade de ajuda externa                </td>
+                <td> Verificar aberturas no rejunte dos tacos ou tábuas.  Substituir peças manchas e/ou danificadas.  Recuperação abrange a raspagem, o nivelamento e, se preciso, a substituição das peças. Para um acabamento adequado, deve-se aplicar uma camada de verniz (fosco, semi-fosco ou brilhante) ou uma resina à base d’água.                </td>
+                <td> Não deixar o piso molhado, úmido;  Evite usar produtos químicos como alvejantes e detergentes, pois desgastam o verniz do material;  Contato direto com os raios solares modifica a coloração da madeira. Utilize cortinas para bloquear ou filtrar o sol nos horários mais fortes; Forrar os pés e as bases dos móveis com feltro, borracha ou capas de gel, para proteger o piso de arranhões.                </td>
+                <td>Inspeções visuais a cada 06 meses;                </td>            
+                <td>-</td>
+            </tr>            <tr>
+                <td>PORTÕES DE FERRO                </td>
+                <td> Chumbadores deslocados                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td>"Quebrar ao redor do chumbador até encontrar superfície firme; limpar a superfície removendo todo o material solto;  molhar abundantemente; 
+                    chumbar novamente o chumbador com argamassa de cimento e areia (1 volume de cimento CPII-32 para 3 volumes de areia média)."</td>
+                <td>-</td>
+                <td>-</td>            
+                <td>-</td>
+                </tr>
+            <tr>
+                <td>PORTÕES DE FERRO                </td>
+                <td> Dobradiças com folga.                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td> Retirar o portão das dobradiças; 
+                     fixar novamente as dobradiças aos chumbadores; 
+                     recolocar o portão.                     </td>
+                <td> Caso haja risco de desabamento, isolar a área.                </td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>PORTÕES DE FERRO                </td>
+                <td>Telas rompidas.                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td> Retirar o trecho de tela danificada situado entre dois montantes 
+                    consecutivos fixando as partes remanescentes nos montantes com 
+                    arame recozido; 
+                    Colocar o novo trecho de tela sobrepondo-o aos montantes, fixando-o 
+                    também com arame recozido. 
+                    </td>
+                <td>-</td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>PORTÕES DE FERRO                </td>
+                <td>Ferrugem                </td>
+                <td>Procedimento a ser seguido sem necessidade de ajuda externa                </td>
+                <td> Limpar com escova de aço e lixa para ferro (lixa d’água) a parte 
+                    enferrujada; 
+                    preencher as frestas com massa plástica para chapa metálica 
+                    utilizando uma espátula; 
+                     aplicar uma demão de tinta antioxidante e retocar a pintura, de acordo 
+                    com a pintura original.
+                    </td>
+                <td>-</td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>PORTÕES DE FERRO                </td>
+                <td>Pintura desfeita ou descascada.                </td>
+                <td>Procedimento a ser seguido sem necessidade de ajuda externa                </td>
+                <td> Raspar a pintura com lixa fina para ferro (lixa d’água) retirando-se 
+                    todos os pontos de ferrugem; 
+                     aplicar uma camada de antioxidante e refazer a pintura conforme o 
+                    original.                    </td>
+                <td>-</td>
+                <td>-</td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>REVESTIMENTOS DE PISOS E PAREDES                </td>
+                <td>Placas destacadas, ou soltas                </td>
+                <td>Procedimento a ser seguido sem necessidade de ajuda externa                </td>
+                <td>Se placas ou peças do revestimento se destacarem, deverá ser retirado o revestimento de toda a área em volta e verificar a existência ou não de problemas na estrutura do piso e paredes.                </td>
+                <td>-</td>
+                <td>Inspeções visuais a cada 06 meses;
+                </td>            
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>VIDROS E ESPELHOS                </td>
+                <td>Vidros e espellhos trincados, quebrados, riscados ou manchados                </td>
+                <td>Procedimento a ser executado por mão-de-obra contratada e especializada                </td>
+                <td>Substituir imediatamente peças trincadas, quebradas, riscadas e manchadas, por vidro de mesma característica (cor, espessura, tamanho, etc.);  Verificar a vedação e fixação dos vidros;  Substituir as portas de vidro caso apresentem qualquer irregularidade como: Porta abrindo ou fechando com dificuldade; Guia da porta quebrada; Batentes inferior ou superior quebrados e/ou soltos; Contato do puxador da porta com a lateral; Dobradiças soltas; Trava de segurança; Excesso de balanço no conjunto da porta; Porta raspando no piso ou fora do prumo e do nível.                </td>
+                <td> Em casos de quebra ou trinca, trocar imediatamente a peça para evitar acidentes;  Evitar utilizar produto abrasivo ou limpadores industriais que contenham amônia, além de palhas de aço ou materiais "duros", bem como o "famoso" jornal, pois quando dobrado pode formar superfícies ásperas, que causam riscos nos vidros.  Os vidros possuem espessura compatível com a resistência necessária para o seu uso normal. Por essa razão, evitar qualquer tipo de batida na sua superfície ou nos caixilhos;  Evitar abrir janelas ou portas empurrando a parte de vidro, utilizar os puxadores e fechos;  Solicitar a cada ano, à empresa especializada em vidros temperados, a inspeção do funcionamento do sistema de molas e dobradiças e verificar a necessidade de lubrificação;
+                </td>
+                <td>Inspeções visuais a cada 15dias.
+                </td>            
+                <td>-</td>
+            </tr>            
+            
+        </tbody>
+    </table>
+
+
+
+</div>
+
+<script>
+// Função para pesquisar na tabela
+function searchTable() {
+  var input, filter, table, tr, td, i, j, txtValue;
+  input = document.getElementById("search-input");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("dataTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop através de todas as linhas da tabela e de todas as células de cada linha
+  for (i = 0; i < tr.length; i++) {
+    for (j = 0; j < 7; j++) { // 7 é o número de colunas na tabela
+      td = tr[i].getElementsByTagName("td")[j];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break; // Se encontrar um resultado, sai do loop interno
+        } else {
+          tr[i].style.display = "none"; // Se não encontrar, oculta a linha
+        }
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>

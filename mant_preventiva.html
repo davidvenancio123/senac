@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manutenção Preventiva</title>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+    }
+    #header {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    #header img {
+        max-width: 100%;
+        height: auto;
+    }
+    .container {
+        width: 80%; /* Defina a largura desejada */
+        margin: 0 auto; /* Centraliza horizontalmente */
+    }
+    h2 {
+        text-align: center;
+    }
+    #search-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    #search-input {
+        width: 60%;
+        padding: 8px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    #search-button {
+        background-color: #000066;
+        color: white;
+        padding: 8px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    #search-button:hover {
+        background-color: #ffa500;
+    }
+    table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: center; /* Alteração para centralizar o texto */
+    padding: 2px;
+    font-size: 12px; /* Definindo o tamanho da fonte */
+}
+th {
+    background-color: #f2f2f2;
+}
+
+</style>
+</head>
+<body>
+
+<div id="header">
+    <!-- Adicionando a imagem do cabeçalho -->
+    <img src="LOGO GERAL.png" alt="Logo Geral">
+</div>
+
+<div class="container">
+    <h2>PESQUISA DE MANUTENÇÃO PREVENTIVA</h2>
+
+    <!-- Adicionando a barra de pesquisa -->
+    <div id="search-container">
+        <input type="text" id="search-input" onkeyup="searchTable()" placeholder="Entre com alguma pesquisa (palavra-chave)">
+       
+    </div>
+
+    <!-- Tabela de problemas -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th style="width: 10%;">PERÍODO</th>
+                <th style="width: 15%;">SISTEMA</th>
+                <th style="width: 15%;">ELEMENTO/COMPONENTE</th>
+                <th style="width: 40%;">ATIVIDADE</th>
+                <th style="width: 20%;">RESPONSÁVEL</th>
+                           </tr>
+        </thead>
+        <tbody>
+            <!-- Aqui você insere os dados da tabela -->
+            <tr>
+                <td>A cada 15 dias</td>
+                <td>Equipamentos industrializados                </td>
+                <td>Iluminação de emergência                </td>
+                <td>Efetuar teste de funcionamento dos sistemas conforme instruções do fornecedor                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada mês                </td>
+                <td>Equipamentos industrializados                </td>
+                <td>Equipamentos de Ar condionado                </td>
+                <td>Verificar o estado de conservação do ar, bem como efetuar a manutenção necessária para o perfeito desempenho                </td>
+                <td>Equipe de manutenção local / Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada mês                </td>
+                <td>Equipamentos industrializados                </td>
+                <td>Elevadores/Plataformas                </td>
+                <td>Verificar o estado de conservação do ar, bem como efetuar a manutenção necessária para o perfeito desempenho                </td>
+                <td>Equipe de manutenção local / Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada mês                </td>
+                <td>Instalações Elétricas                </td>
+                <td>Instalações elétricas                </td>
+                <td>Efetuar teste de funcionamento dos sistemas, verificar luminárias e afins                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada mês                </td>
+                <td>Equipamentos industrializados                </td>
+                <td>Nobreaks                </td>
+                <td>"Efetuar teste de funcionamento: Verificações periódicas que podem ser realizadas por equipe própria do SENAC: 
+                     Verificar se o equipamento está em operação normal, com atenção se 
+                    existe algum alarme ou indicação de erro no visor; 
+                     Verificar se todas as tampas do nobreak estão devidamente fechadas 
+                    e/ou parafusada; 
+                     Verificar se a proteção do banco de baterias está instalada 
+                    adequadamente; 
+                     Verificar se não foi deixado qualquer equipamento ou caixa próxima 
+                    ao nobreak que bloqueie a circulação normal de ar; 
+                     Verificar se o sistema de climatização da sala está com funcionamento 
+                    normal e a temperatura está adequada; 
+                     Verificar se não existe algum barulho anormal e aquecimento nas 
+                    laterais do equipamento; Manutenções preventivas – as manutenções preventivas variam de acordo com o fabricante e deverão seguir o especificado em seu respectivo manual; "</td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 2 meses                </td>
+                <td>Equipamentos industrializados                </td>
+                <td>Iluminação de emergência                </td>
+                <td>Para unidades centrais, verificar fusíveis , led de carga de bateria selada e nível de eletrólito da bateria comum conforme instruções dos fabricantes                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 meses                </td>
+                <td>Equipamentos industrializados                </td>
+                <td>Porta corta-fogo, portões de ferro de abrir, de correr e basculantes                </td>
+                <td>Aplicar óleo lubrificantes nas dobradiças e maçanetas / Verificar a abertura e o fechamento. Se necessário fazer regulagem, chamar empresa especializada                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 meses                </td>
+                <td>Esquadrias de Alumínio                </td>
+                <td>Esquadrias de Alumínio                </td>
+                <td>Limpeza dos orificios dos trilhos inferiores                   </td>
+                <td>Equipe de manutenção local / Empresa capacitada                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 meses                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Verificar as caixas de esgoto, águas pluviais e demais itens aparentes                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 meses                </td>
+                <td>Esquadrias de Alumínio                </td>
+                <td>Brises e placas perfuradas                </td>
+                <td>Inspeção visual dos brises e placas perfuradas; Caso alguma placa esteja danificada, ou solta da estrutura, deve ser realizada manutenção/substituição;                </td>
+                <td>Equipe de manutenção local / Empresa capacitada
+                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 meses                </td>
+                <td>Instalações elétricas                </td>
+                <td>Painéis fotovoltaicos                </td>
+                <td>Inspeção visual dos painéis fotovoltaicos                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 meses                </td>
+                <td>Instalações complementares                </td>
+                <td>Cabeamento estruturado, rede de lógica, telefonia e CFTV                </td>
+                <td>"Inspeção dos cabeamentos e acessórios:  Verificar se todas as tampas das caixas e dos Racks estão devidamente 
+                    fechadas; 
+                     Verificação geral se existe alguma fiação exposta. Toda fiação deverá 
+                    estar devidamente protegida, através de caixas com tampa, 
+                    eletrodutos ou eletrocalhas; 
+                     Verificar se todos os pontos estão com funcionamento adequado; 
+                     Verificar se todos os equipamentos de TI, como computadores, 
+                    impressoras, projetores e o rack estão devidamente ligados em 
+                    circuitos da rede estabilizada;</td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Acionar as tubulações que não são constantementes usadas (ladrão)                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 mesee[s              </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Limpar os aeradores (bicos removíveis). Limpar e verificar regulagem do mecanismo de descarga. Limpeza dos reservatórios (inferior e superior)                </td>
+                <td>Empresa Especializada                </td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Verificar os ralos e sifões das louças, tanques e pias.                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Testar abertura e fechamento dos registros dos barriletes                </td>
+                <td>Equipe de manutenção local                </td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Sistemas de combate a incêndio (sprinklers, hidrantes, etc.) e seus componentes industrializados (bombas, válvulas de fluxo, detectores)                </td>
+                <td>Sistemas de combate a incêndio (sprinklers, hidrantes, etc.) e seus componentes industrializados (bombas, válvulas de fluxo, detectores)                </td>
+                <td>Manutenção a fim de assegurar a operacionalidade do sistema e componentes                 </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Instalações Elétricas                </td>
+                <td>Instalações Elétricas                </td>
+                <td>Testar o disjuntor tipo DR apertando o botão localizado no próprio aparelho. Ao apertar botão, a energia será interrompida. Caso isso não ocorra, trocar o DR. Reapertar as conexões elétricas e verificar estado do aterramento das carcaças.                </td>
+                <td>Equipe de manutenção local / Empresa capacitada                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Iluminação de Emergência / baterias comuns                </td>
+                <td>Iluminação de Emergência / baterias comuns                </td>
+                <td>Após o 3º ano de instalação, testar o sistema, desligando o disjuntor e deixando ocorrer o corte por mínimo de tensão, a fim de verificar se o tempo de autonomia é satisfatório                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Porta corta-fogo                </td>
+                <td>Porta corta-fogo                </td>
+                <td>Verificar as portas e se necessário, realizar regulagens e ajustes necessários                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Esquadrias de ferro e aço                </td>
+                <td>Esquadrias de ferro e aço                </td>
+                <td>Verificar as esquadrias, para identificação de pontos de oxidação e, se necessário, proceder reparos necessários                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Instalações de gás / Ramais / Válvulas / Registros / Medidores / Conexões                </td>
+                <td>Instalações de gás / Ramais / Válvulas / Registros / Medidores / Conexões                </td>
+                <td>Verificar a regulagem do mecanismo, reaperto das conexões, teste de abertura e fechamento dos registros, inspeção visual verificando a integridade do sistema                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Estrutural                </td>
+                <td>Muros perimetrias e contenções                </td>
+                <td>Verificação do estado de conservação dos murs perimetrais e contenções                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Cobertura                </td>
+                <td>Telha, calha, pontos de ancoragens                </td>
+                <td>Verificação de vazamento por quebra de telhas, selamento das calhas, verificar as condições dos pontos de ancoragens                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Impermeabilização                </td>
+                <td>Áreas molhadas internas e externas, reservatórios, coberturas, jardins                </td>
+                <td>Verificar sua integridade e reconstituir a proteção mecânica, sinais de infiltração ou falhas da impermeabilização exposta, Inspecionar a camada drenante do jardim, verificando se não há obstrução na tubulação e entupimento dos ralos                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Estrutural/Paredes                </td>
+                <td>Lajes, vigas e pilares                </td>
+                <td>Detecção e controle de fissuras em elementos estruturais                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 6 meses                </td>
+                <td>Revestimento de pisos, paredes e tetos                </td>
+                <td>Pisos, paredes e tetos                </td>
+                <td>Inspecionar pisos, paredes e teto                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Estrutural                </td>
+                <td>Lajes, vigas e pilares                </td>
+                <td>Verificação da integridade estrutural conforme ABNT NBR 15575-2 conforme seções 3.1 a 3.10                </td>
+                <td>Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Equipamentos industrializados                </td>
+                <td>Sistema de proteção contra descargas atmosféricas                </td>
+                <td>Inspecionar sua integridade e reconstituir o sistema de medição de resistência conforme legislação vigente                </td>
+                <td>Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Sistemas de segurança                </td>
+                <td>Sistemas de segurança                </td>
+                <td>Manutenção recomendada pelo fornecedor                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Desratização e desinsetização                 </td>
+                <td>Desratização e desinsetização                 </td>
+                <td>Aplicação de controle necessário                </td>
+                <td>Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Impermeabilização                </td>
+                <td>Áreas molhadas internas e externas, reservatórios, coberturas, jardins                </td>
+                <td>Verificar sua integridade e reconstituir a proteção mecânica, sinais de infiltração ou falhas da impermeabilização exposta                </td>
+                <td>Equipe de Manutenção Local                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Impermeabilização                </td>
+                <td>Áreas molhadas internas e externas, reservatórios, coberturas, jardins                </td>
+                <td>Inspecionar a camada drenante do jardim, verificando se não há obstrução na tubulação e entupimento dos ralos                </td>
+                <td>Equipe de Manutenção Local                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Rejuntamento e vedações                </td>
+                <td>Rejuntamento e vedações                </td>
+                <td>Verificar sua integridade e reconstruir os rejuntamentos internos e externos dos pisos, paredes, soleiras, ralos, peças sanitárias, grelhas de ventilação e outros elementos                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Revestimento de parede/piso e teto                </td>
+                <td>Rejuntamento e tratamento de Juntas                </td>
+                <td>Verificar e completar o rejuntamento nas juntas de dilatação e juntas de trabalho com mastique                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Revestimento de parede/piso e teto                </td>
+                <td>Paredes externas/fachada e muros                </td>
+                <td>Verificar a calafetação de rufos, fixação de pára-raios, antenas e elementos decorativos                </td>
+                <td>Equipe de Manutenção Local                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Revestimento de parede/piso e teto                </td>
+                <td>Azulejo/Cerâmica/Pastilha                </td>
+                <td>Lavagem da fachada, muros, áreas externas                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Revestimento de parede                </td>
+                <td>Revestimento ACM                </td>
+                <td>Revisar as juntas e acabamentos, sistema de fixação                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Revestimento de paredes e tetos em argamassa ou gesso ou forro de gesso (interno e externo)                </td>
+                <td>Forro interno e externo                </td>
+                <td>Revisar a pintura das áreas secas e se necessário pintá-las evitando o envelhecimento e perda de brilho                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Pintura e texturas                </td>
+                <td>Pintura, texturas, vernizes (interna e externa)                </td>
+                <td>Revisar a pintura das áreas secas e se necessário pintá-las evitando o envelhecimento, a perda de brilho, o descascamento e eventuais fissuras podem causar infiltrações                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Pintura e texturas                </td>
+                <td>Vedações flexíveis                </td>
+                <td>Inspecionar e, s enecessário, completar o rejuntamento com mastique, isto é importante para evitar o surgimento de manchas e infiltrações                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Trocar os vendantes/courinhos/ das torneiras, e registro de pressão                </td>
+                <td>Equipe de Manutenção Local                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Verificar, anéis o'ring dos registros de pressão                </td>
+                <td>Equipe de Manutenção Local </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Chuveiros                </td>
+                <td>Limpar o crivo do chuveiro                </td>
+                <td>Equipe de Manutenção Local                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Esquadria em geral                </td>
+                <td>Esquadria em geral                </td>
+                <td>Reapertar parafusos aparentes dos fechos                </td>
+                <td>Equipe de Manutenção Local                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Esquadria em geral                </td>
+                <td>Esquadria em geral                </td>
+                <td>Regulagem do freio                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Esquadria em geral                </td>
+                <td>Esquadria em geral                </td>
+                <td>Limpeza geral das esquadrias incluindo os drenos. Observar a tipologia e a complexidade das esquadrias, os projetos e instruções do fornecedor                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Esquadrias de ferro e aço                </td>
+                <td>Esquadrias de ferro e aço                </td>
+                <td>Repintar as esquadrias                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Vidros e seus sistemas de fixação                </td>
+                <td>Vidros e seus sistemas de fixação                </td>
+                <td>Verificar a presença de fissuras, falhas na vedação e fixação nos caixilhos e reconstituir a sua integridade, onde necessário                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Sistemas hidrossanitários                </td>
+                <td>Tubulações                </td>
+                <td>Verificar as tubulações de água potável e servida para detectar obstruções, falhas ou entupimentos, e fixação e reconstituir a sua integridade, onde necessário                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Sistemas hidrossanitários                </td>
+                <td>Metais, acessórios e registros                </td>
+                <td>Verificar os elementos de vedação dos metais, acessórios e registros                </td>
+                <td>Equipe de Manutenção Local                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Instalações Elétricas                 </td>
+                <td>Quadro de Distribuição de Circuitos                </td>
+                <td>Reapertar todas as conexões                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Instalações Elétricas                 </td>
+                <td>Quadro de Distribuição de Circuitos                </td>
+                <td>Eliminar pontos de fios que apresentam sinal de superaquecimento                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Instalações Elétricas                 </td>
+                <td>Quadro de Distribuição de Circuitos                </td>
+                <td>Substituir chaves com problemas de religação                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Instalações Elétricas                 </td>
+                <td>Quadro de Distribuição de Circuitos                </td>
+                <td>Rever estados de isolamento das emendas de fios                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Equipamentos de Incêndio                </td>
+                <td>Equipamentos de Incêndio                </td>
+                <td>Recarga de Extintores                </td>
+                <td>Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Equipamentos de Incêndio                </td>
+                <td>Equipamentos de Incêndio                </td>
+                <td>teste Hidrostático dos extintores                </td>
+                <td>Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Equipamentos industrializados                </td>
+                <td>Sistema de proteção contra descargas atmosféricas                </td>
+                <td>Inspecionar periodicamente de acordo com a legislação vigente                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Sistema de Cobertura                </td>
+                <td>Sistema de Cobertura                </td>
+                <td>Verificar a integridade estrutural dos componentes, vedações, fixações, e reconstituir e tratar, onde necessário                </td>
+                <td>Equipe de manutenção local / Empresa especializada</td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Cobertura                </td>
+                <td>Telhas                </td>
+                <td>Trocar telhas quebradas, amassadas, corridas ou mal encaixadas                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Cobertura                </td>
+                <td>Estrutura                </td>
+                <td>Identificar eventuais lesões, deformações e desagregações                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Equipamentos de Incêndio                </td>
+                <td>Equipamentos de Incêndio                </td>
+                <td>Inspeção visual hidrantes e testes de funcionamento                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Instalações Hidráulicas                </td>
+                <td>Aquecedores de água                </td>
+                <td>Inspeção visual aquecedores de água. Adequação conforme fabricante                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada ano                </td>
+                <td>Esquadrias em geral                </td>
+                <td>Portas automáticas                </td>
+                <td>Inspeção visual e reapertos necessários                </td>
+                <td>Equipe de Manutenção Local                </td>
+            </tr>
+            <tr>
+                <td>A cada 2 anos                </td>
+                <td>Esquadrias de madeira                </td>
+                <td>Esquadrias de madeira                </td>
+                <td>Encerar as esquadrias                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 2 anos                </td>
+                <td>Instalações Elétricas                </td>
+                <td>Tomadas, Interruptores e Pontos de Luz                </td>
+                <td>Reapertar conexões e verificar estado dos contatos elétricos substituindo as peças que apresentem desgaste                </td>
+                <td>Equipe de manutenção local                </td>
+            </tr>
+            <tr>
+                <td>A cada 2 anos                </td>
+                <td>Esquadrias                </td>
+                <td>Esquadrias e elementos de ferro                </td>
+                <td>Verificar e, se necessário, pintar ou executar tratamento específico recomendado pelo fornecedor                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 2 anos                </td>
+                <td>Esquadrias                </td>
+                <td>Esquadrias e elementos de madeira                </td>
+                <td>Verificar e, se necessário, pintar, encerar, envernizar ou executar tratamento recomendado pelos fornecedores                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 2 anos                </td>
+                <td>Forros                </td>
+                <td>Gesso                </td>
+                <td>Repintar os forros das áreas secas                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 anos                </td>
+                <td>Revestimentos de parede/piso e teto                </td>
+                <td>Paredes externas/fachada e muros                </td>
+                <td>Efetuar lavagem da fachada e muros                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 anos                </td>
+                <td>Esquadrias de madeira                </td>
+                <td>Esquadrias de madeira                </td>
+                <td>Pintar ou envernizar as esquadrias                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 anos                </td>
+                <td>Equipamentos de Incêndio                </td>
+                <td>Equipamentos de Incêndio                </td>
+                <td>Verificar quanto aos testes                </td>
+                <td>Equipe de manutenção local / Empresa especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 anos                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Verificar gaxeta, anéis o'ring e estanqueidade dos registros de gaveta e dos registros de esfera                </td>
+                <td>Equipe de Manutenção Local                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 anos                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Instalações Hidráulicas / Louças /Metais /Bombas                </td>
+                <td>Verificar o barrilete de entrada, poço e a comporta do mecanismo de caixa acoplada                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 anos                </td>
+                <td>Revestimento de parede/piso e teto                </td>
+                <td>Paredes e Tetos internos revestidos de argamassa/gesso liso/ou gesso acartonado (Dry-Wall)                </td>
+                <td>Repintar as áreas internas                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 anos                </td>
+                <td>Pintura / verniz (interna/externa)                </td>
+                <td>Pintura / verniz (interna/externa)                </td>
+                <td>Repintar as áreas externas e as fachadas da edificação                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 anos</td>
+                <td>Revestimento de parede                </td>
+                <td>Fachada                </td>
+                <td>Manutenção Fachada                </td>
+                <td>Equipe de manutenção local / Empresa capacitada                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 anos                </td>
+                <td>Pintura                </td>
+                <td>Paredes, muros, fachada                </td>
+                <td>Pintura externa                </td>
+                <td>Equipe de manutenção local / Empresa capacitada                </td>
+            </tr>
+            <tr>
+                <td>A cada 3 anos                </td>
+                <td>Instalações Elétricas                </td>
+                <td>Fachada                </td>
+                <td>Manutenção completa SPDA                </td>
+                <td>Equipe de manutenção local / Empresa capacitada                </td>
+            </tr>
+            <tr>
+                <td>A cada 5 anos                </td>
+                <td>Instalações G.L.P                </td>
+                <td>Instalações G.L.P                </td>
+                <td>Manutenção Central de GLP                </td>
+                <td>Equipe de manutenção local / Empresa capacitada                </td>
+            </tr>
+            <tr>
+                <td>A cada 5 anos                </td>
+                <td>Sistemas de combate a incêndio (sprinklers, hidrantes, etc.) e seus componentes industrializados (bombas, válvulas de fluxo, detectores)                </td>
+                <td>Sistemas de combate a incêndio (sprinklers, hidrantes, etc.) e seus componentes industrializados (bombas, válvulas de fluxo, detectores)                </td>
+                <td>Manutenção geral (hidrantes, recarga de extintores, a fim de assegurar a operacionalidade do sistema e componentes)                </td>
+                <td>Empresa Especializada                </td>
+            </tr>
+            <tr>
+                <td>A cada 5 anos                </td>
+                <td>Instalações elétricas                </td>
+                <td>Entrada de energia                </td>
+                <td>"Revisão geral:  Contratação de empresa especializada para realização dos seguintes 
+                    serviços: 
+                     Verificação completa das instalações da entrada de energia; 
+                     Verificação de todas as tampas e grades de proteção, bem como os 
+                    dispositivos e fechaduras que evitam o acesso de pessoa não 
+                    autorizada; 
+                     Verificação e reaperto geral de todo o cabeamento; 
+                     Verificação e teste de todos os equipamentos e componentes; 
+                     Análise do óleo do transformador; 
+                     Testes de isolamento e continuidade; 
+                     Verificação, teste e medição do aterramento; 
+                     Verificação dos tapetes de isolamento, quando aplicável;</td>
+                <td>Equipe de manutenção local / Empresa capacitada                </td>
+            </tr>
+            <tr>
+                <td>A cada 5 anos                </td>
+                <td>Instalações elétricas                </td>
+                <td>Cabine de energia                </td>
+                <td> Revisão geral </td>
+                <td>Equipe de manutenção local / Empresa capacitada                </td>
+            </tr>
+
+                       
+            
+        </tbody>
+    </table>
+
+
+
+</div>
+
+<script>
+// Função para pesquisar na tabela
+function searchTable() {
+  var input, filter, table, tr, td, i, j, txtValue;
+  input = document.getElementById("search-input");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("dataTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop através de todas as linhas da tabela e de todas as células de cada linha
+  for (i = 0; i < tr.length; i++) {
+    for (j = 0; j < 7; j++) { // 7 é o número de colunas na tabela
+      td = tr[i].getElementsByTagName("td")[j];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break; // Se encontrar um resultado, sai do loop interno
+        } else {
+          tr[i].style.display = "none"; // Se não encontrar, oculta a linha
+        }
+      }
+    }
+  }
+}
+</script>
+
+
+<script>
+   
+</script>
+</script>
+</body>
+</html>
