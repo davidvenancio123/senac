@@ -17,20 +17,20 @@
     #header {
         position: relative;
         text-align: center;
-        padding-top: 20px; /* Espaçamento superior para evitar sobreposição */
+        padding-top: 10px; /* Espaçamento superior para evitar sobreposição */
     }
     #header img {
-        max-width: 100%;
+        max-width: 70%;
         height: auto;
     }
-    .container {
-        max-width: 600px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+	.container {
+ 	   max-width: 600px;
+    margin:10px auto 80px auto; /* Aqui, reduzi o espaçamento superior para 50px */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
     h2 {
         text-align: center;
     }
@@ -148,9 +148,8 @@
         <label for="tipoManutencao">Tipo de Manutenção:</label>
         <select id="tipoManutencao">
             <option value="Corretiva">Manutenção Corretiva</option>
-	    <option value="Preventiva">Manutenção Preventiva</option>
+            <option value="Preventiva">Manutenção Preventiva</option>
 	    <option value="Preditiva">Manutenção Preditiva</option>
-            
             
         </select>
 
@@ -331,8 +330,30 @@
         adicionarUnidadeOption("ARAPONGAS - R. Tico Tico Rei, 51 - Gleba Patrimônio Arapongas - CEP: 86.702-666"," ");
         adicionarUnidadeOption("BELA VISTA DO PARAÍSO - Praça Brasílio de Araujo Filho, 41 - Centro - CEP: 86.130-000"," ");
         // Adicionar unidades da Região 05 conforme necessário
-    }
+    }document.getElementById('regiao').addEventListener('change', function() {
+  var regiaoSelecionada = this.value;
+  // Lógica para gerar o ID único (substitua por sua lógica real)
+  var idUnico = gerarIdUnico(regiaoSelecionada);
+  // Inserir o ID único no campo oculto
+  document.getElementById('idunico').value = idUnico;
+});
+
+
 }
+/// Função para gerar um ID único para Ordem de Serviço
+function gerarIdUnico(regiao) {
+    const agora = new Date();
+    const ano = agora.getFullYear();
+    const mes = String(agora.getMonth() + 1).padStart(2, '0'); // Adiciona um zero à esquerda se o mês tiver apenas um dígito
+    const dia = String(agora.getDate()).padStart(2, '0'); // Adiciona um zero à esquerda se o dia tiver apenas um dígito
+    const hora = String(agora.getHours()).padStart(2, '0');
+    const minuto = String(agora.getMinutes()).padStart(2, '0');
+    const segundo = String(agora.getSeconds()).padStart(2, '0');
+    const milissegundo = String(agora.getMilliseconds()).padStart(3, '0'); // Adiciona zeros à esquerda se o milissegundo tiver menos de três dígitos
+
+    return `${ano}${mes}${dia}${hora}${minuto}${segundo}${milissegundo}`;
+}
+
 
     function adicionarUnidadeOption(nome, endereco) {
         var unidadesSelect = document.getElementById("unidade");
@@ -350,10 +371,13 @@
         var data = document.getElementById("data").value;
         var descricao = document.getElementById("descricao").value;
         var prioridade = document.getElementById("prioridade").value;
+        const idUnico = gerarIdUnico();
+       
 
         // Construir o corpo do e-mail com as informações
         var corpoEmail = "Olá," + "\n" +
-            "Temos uma demanda de serviço, segue abaixo especificação da O.S:" + "\n" + "\n" +
+            "Nº O.S: "+ idUnico + "\n" +
+             "Temos uma demanda de serviço, segue abaixo especificação da O.S:" + "\n" + "\n" +
             "Tipo de Manutenção: " + tipoManutencao + "\n" +
             "Região: " + regiao + "\n" +
             "Unidade: " + unidade + "\n" +
@@ -381,7 +405,7 @@
 
         if (metodo === 'email') {
             // Construir o link mailto com os parâmetros necessários
-            var subject = "Nova Ordem de Serviço - " + tipoManutencao + " - " + regiao + " - " + unidade;
+            var subject = "id - " + "Nova Ordem de Serviço - " + tipoManutencao + " - " + regiao + " - " + unidade;
             var body = encodeURIComponent(corpoEmail);
             var mailtoLink = "mailto:" + destinatario + "?subject=" + subject + "&body=" + body;
 
@@ -398,14 +422,14 @@
 
 //novo comando para aprovar usando o botão de salvar registros concomitantemente
 
-function pedidoAprovacao() {
+function pedidoAprovacao(callback) {
     var tipoManutencao = document.getElementById("tipoManutencao").value;
-    var regiao = document.getElementById("regiao").value;
-    var unidade = document.getElementById("unidade").value;
-    var local = document.getElementById("local").value;
-    var data = document.getElementById("data").value;
-    var descricao = document.getElementById("descricao").value;
-    var prioridade = document.getElementById("prioridade").value;
+        var regiao = document.getElementById("regiao").value;
+        var unidade = document.getElementById("unidade").value;
+        var local = document.getElementById("local").value;
+        var data = document.getElementById("data").value;
+        var descricao = document.getElementById("descricao").value;
+        var prioridade = document.getElementById("prioridade").value;
 
     // Construir o corpo do e-mail com as informações
     var corpoEmail = "Olá," + "\n" +
@@ -417,12 +441,10 @@ function pedidoAprovacao() {
             "Data da Manutenção: " + data + "\n" +
             "Descrição: " + descricao + "\n" +
             "Prioridade: " + prioridade + "\n" + "\n" +
-            "Por favor, clique nos links abaixo para Aprovar ou Reprovar esta ordem de serviço:" + "\n" +
-        "Aprovar: [https://davidvenancio123.github.io/senac_teste/aprovada.html]" + "\n" +
-        "Reprovar: [https://davidvenancio123.github.io/senac_teste/reprovada.html]" + "\n" + "\n" +
-        "Grato, " + "\n" +
-        " ";
-
+            "Aprovar: [https://davidvenancio123.github.io/senac_teste/aprovada.html]" + "\n" +
+            "Reprovar: [https://davidvenancio123.github.io/senac_teste/reprovada.html]" + "\n" + "\n" +
+            "Grato, " + "\n" +
+            " ";
     var destinatario = "aprovador@teste.com.br";
 
     // Construir o link mailto com os parâmetros necessários
@@ -456,25 +478,12 @@ function pedidoAprovacao() {
     }
 
 
-/// Função para gerar um ID único para Ordem de Serviço
-function gerarIdUnico() {
-    const agora = new Date();
-    const ano = agora.getFullYear();
-    const mes = String(agora.getMonth() + 1).padStart(2, '0'); // Adiciona um zero à esquerda se o mês tiver apenas um dígito
-    const dia = String(agora.getDate()).padStart(2, '0'); // Adiciona um zero à esquerda se o dia tiver apenas um dígito
-    const hora = String(agora.getHours()).padStart(2, '0');
-    const minuto = String(agora.getMinutes()).padStart(2, '0');
-    const segundo = String(agora.getSeconds()).padStart(2, '0');
-    const milissegundo = String(agora.getMilliseconds()).padStart(3, '0'); // Adiciona zeros à esquerda se o milissegundo tiver menos de três dígitos
-
-    return `${ano}${mes}${dia}${hora}${minuto}${segundo}${milissegundo}`;
-}
 
 
 
         // Criar um objeto representando a ordem de serviço
         var ordemServico = {
-            id: gerarIdUnico(), // Usando a função gerarIdUnico() para gerar um identificador único
+            id: idUnico, // pega a função gerarIdUnico() para gerar um identificador único
             tipoManutencao: tipoManutencao,
             regiao: regiao,
             unidade: unidade,
@@ -535,13 +544,14 @@ function gerarIdUnico() {
         // Adicionar os registros filtrados à tabela
         registrosFiltrados.forEach(function(ordemServico) {
             var row = tabela.insertRow();
-            row.insertCell(0).innerHTML = ordemServico.data;
-            row.insertCell(1).innerHTML = ordemServico.unidade;
-            row.insertCell(2).innerHTML = ordemServico.local;
-            row.insertCell(3).innerHTML = ordemServico.descricao;
-            row.insertCell(4).innerHTML = ordemServico.tipoManutencao;
-            row.insertCell(5).innerHTML = ordemServico.prioridade;
-        });
+        row.insertCell(0).innerHTML = ordemServico.id; // Incluir o identificador na primeira coluna (oculta)
+        row.insertCell(1).innerHTML = ordemServico.data;
+        row.insertCell(2).innerHTML = ordemServico.unidade;
+        row.insertCell(3).innerHTML = ordemServico.local;
+        row.insertCell(4).innerHTML = ordemServico.descricao;
+        row.insertCell(5).innerHTML = ordemServico.tipoManutencao;
+        row.insertCell(6).innerHTML = ordemServico.prioridade;
+    });
     }
 
     // Exibir os registros ao carregar a página
@@ -586,12 +596,14 @@ function salvarSolicitar() {
         pedidoAprovacao();
 }
 
+
+
 </script>
 <div id="footer">
         <a href="https://apps.powerapps.com/play/e/default-e7fd764d-46ff-41ee-8c8c-e41e8a4968ed/a/a8fb1194-c36c-4346-9e4e-ab32fe960d37?tenantId=e7fd764d-46ff-41ee-8c8c-e41e8a4968ed&hint=e9b65ca3-488a-43e2-a03e-01e3765238f2&source=sharebutton&sourcetime=1712086787646" target="_blank" rel="noopener noreferrer">
             <button class="button">Garantia de Novas Obras</button>
         </a>
-        <a href="https://apps.powerapps.com/play/e/default-e7fd764d-46ff-41ee-8c8c-e41e8a4968ed/a/e523f0d0-f728-462d-9ca7-d2bf3b395674?tenantId=e7fd764d-46ff-41ee-8c8c-e41e8a4968ed&hint=2400a87f-70f4-41ae-bd96-744610f3981c&source=sharebutton&sourcetime=1712086815322" target="_blank" rel="noopener noreferrer">
+        <a href="https://davidvenancio123.github.io/senac_teste/mant_corretiva.html">
             <button class="button">Manutenção Preventiva</button>
         </a>
         <a href="https://apps.powerapps.com/play/e/default-e7fd764d-46ff-41ee-8c8c-e41e8a4968ed/a/74a6dea8-fc0e-4056-8f08-64afbc622194?tenantId=e7fd764d-46ff-41ee-8c8c-e41e8a4968ed&hint=cc5b435b-f9e7-4a7b-b4df-fb7d85ecc135&source=sharebutton&sourcetime=1712086838257" target="_blank" rel="noopener noreferrer">
@@ -599,7 +611,7 @@ function salvarSolicitar() {
         </a>
         <a href="https://apps.powerapps.com/play/e/default-e7fd764d-46ff-41ee-8c8c-e41e8a4968ed/a/6630ef04-17b8-4daa-bbdd-3a2893bb29f5?tenantId=e7fd764d-46ff-41ee-8c8c-e41e8a4968ed&hint=ed35dd3c-7e62-4556-b374-12cd1d1aad05&source=sharebutton&sourcetime=1712086866910" target="_blank" rel="noopener noreferrer">
             <button class="button">Limpeza (por material)</button>
-	<a href="AQUI SERÁ INSERIDO OUTRO LINK DE MANUT CORRETIVA">
+	<a href="https://davidvenancio123.github.io/senac_teste/mant_corretiva.html">
             <button class="button">Manutenção Corretiva</button>
         </a>
 	<a href="https://senacpr-my.sharepoint.com/:b:/g/personal/david_venancio_pr_senac_br/EeOiUyvO_8NJgQ4GPYlnPUEBKmf1whqC6-qI2Ka6UzF14w?e=4Xd5wP">
