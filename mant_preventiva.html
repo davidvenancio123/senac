@@ -86,7 +86,33 @@ th {
             cursor: pointer; /* Define o cursor como pointer quando o mouse está sobre o botão */
         }
         
-
+ 
+        #footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        background-color: #000066;
+        padding: 6px 0;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+    }
+    #footer .button {
+        background-color: #000066;
+        color: white;
+        padding: 1px 3px;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+        margin: 0 5px;
+        font-size: 11px;
+    }
+    #footer .button:hover {
+        background-color: #000066;
+    
+    }
+	#footer .button:hover {
+        background-color: #ffa500;
+    }
 </style>
 </head>
 <body>
@@ -153,17 +179,17 @@ th {
                 <td>Equipamentos industrializados                </td>
                 <td>Nobreaks                </td>
                 <td>"Efetuar teste de funcionamento: Verificações periódicas que podem ser realizadas por equipe própria do SENAC: 
-                     Verificar se o equipamento está em operação normal, com atenção se 
+                     Verificar se o equipamento está em operação normal, com atenção se 
                     existe algum alarme ou indicação de erro no visor; 
-                     Verificar se todas as tampas do nobreak estão devidamente fechadas 
+                     Verificar se todas as tampas do nobreak estão devidamente fechadas 
                     e/ou parafusada; 
-                     Verificar se a proteção do banco de baterias está instalada 
+                     Verificar se a proteção do banco de baterias está instalada 
                     adequadamente; 
-                     Verificar se não foi deixado qualquer equipamento ou caixa próxima 
+                     Verificar se não foi deixado qualquer equipamento ou caixa próxima 
                     ao nobreak que bloqueie a circulação normal de ar; 
-                     Verificar se o sistema de climatização da sala está com funcionamento 
+                     Verificar se o sistema de climatização da sala está com funcionamento 
                     normal e a temperatura está adequada; 
-                     Verificar se não existe algum barulho anormal e aquecimento nas 
+                     Verificar se não existe algum barulho anormal e aquecimento nas 
                     laterais do equipamento; Manutenções preventivas – as manutenções preventivas variam de acordo com o fabricante e deverão seguir o especificado em seu respectivo manual; "</td>
                 <td>Equipe de manutenção local                </td>
             </tr>
@@ -214,7 +240,7 @@ th {
                 <td>A cada 3 meses                </td>
                 <td>Instalações complementares                </td>
                 <td>Cabeamento estruturado, rede de lógica, telefonia e CFTV                </td>
-                <td>"Inspeção dos cabeamentos e acessórios:  Verificar se todas as tampas das caixas e dos Racks estão devidamente 
+                <td>"Inspeção dos cabeamentos e acessórios:  Verificar se todas as tampas das caixas e dos Racks estão devidamente 
                     fechadas; 
                      Verificação geral se existe alguma fiação exposta. Toda fiação deverá 
                     estar devidamente protegida, através de caixas com tampa, 
@@ -712,7 +738,7 @@ th {
                 <td>A cada 5 anos                </td>
                 <td>Instalações elétricas                </td>
                 <td>Entrada de energia                </td>
-                <td>"Revisão geral:  Contratação de empresa especializada para realização dos seguintes 
+                <td>"Revisão geral:  Contratação de empresa especializada para realização dos seguintes 
                     serviços: 
                      Verificação completa das instalações da entrada de energia; 
                      Verificação de todas as tampas e grades de proteção, bem como os 
@@ -775,5 +801,28 @@ function searchTable() {
    
 </script>
 </script>
+<div id="footer">
+    <a href="https://davidvenancio123.github.io/senac_teste/garantia.html" >
+        <button class="button">Garantia de Novas Obras</button>
+    </a>
+    <a href="https://davidvenancio123.github.io/senac_teste/mant_corretiva.html">
+        <button class="button">Manutenção Preventiva</button>
+    </a>
+    <a href="https://davidvenancio123.github.io/senac_teste/mant_corretiva.html">
+        <button class="button">Manutenção Corretiva</button>
+    </a>
+    <a href="https://davidvenancio123.github.io/senac_teste/limpeza_periodo.html">
+        <button class="button">Limpeza (por período)</button>
+    </a>
+    <a href="https://davidvenancio123.github.io/senac_teste/limpeza_material.html">  
+        <button class="button">Limpeza (por material)</button>
+
+<a href="https://senacpr-my.sharepoint.com/:b:/g/personal/david_venancio_pr_senac_br/EeOiUyvO_8NJgQ4GPYlnPUEBKmf1whqC6-qI2Ka6UzF14w?e=4Xd5wP">
+        <button class="button">Acesse o Manual de Manutenção das Unidades SENAC/PR</button>
+    </a>
+<a href="https://intranet.pr.senac.br/Documentos_Compartilhados/CIN/020%20-%20MANUAL%20DE%20SERVI%C3%87OS%20DE%20LIMPEZA%20SENAC.pdf">
+        <button class="button">Acesse o Manual de Limpeza das Unidades SENAC/PR</button>
+    </a>
+</div>
 </body>
 </html>
