@@ -8,6 +8,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
 
 <style>
+
+  
+        
     body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -151,6 +154,11 @@
             cursor: pointer; /* Define o cursor como pointer quando o mouse está sobre o botão */
         }
         
+        #search-container {
+    margin-top: 20px; /* Altere o valor conforme necessário */
+}
+
+
 
 </style>
 </head>
@@ -222,6 +230,13 @@
         </div>
 
 
+            <!-- Adicionando a barra de pesquisa -->
+    <div id="search-container">
+        <input type="text" id="search-input" onkeyup="searchTable()" placeholder="Entre com a busca da O.S">
+       
+    </div>
+
+
         <!-- Tabela para exibir os registros -->
         <div class="table-container">
             <table id="tabelaOrdens">
@@ -248,6 +263,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
+    
+
 
 //ckeckboxes itens e subitens
  function mostrarSubItens(checkbox) {
@@ -353,7 +370,9 @@
         adicionarUnidadeOption("BELA VISTA DO PARAÍSO - Praça Brasílio de Araujo Filho, 41 - Centro - CEP: 86.130-000"," ");
         // Adicionar unidades da Região 05 conforme necessário
     }document.getElementById('regiao').addEventListener('change', function() {
-  var regiaoSelecionada = this.value;
+ 
+ 
+        var regiaoSelecionada = this.value;
   // Lógica para gerar o ID único (substitua por sua lógica real)
   var idUnico = gerarIdUnico(regiaoSelecionada);
   // Inserir o ID único no campo oculto
@@ -579,6 +598,7 @@ function pedidoAprovacao(callback) {
     // Exibir os registros ao carregar a página
     window.onload = exibirRegistros;
 
+    
 async function salvarTxt() {
         var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
         var texto = "Data | Unidade | Local | Descrição | Tipo de Manutenção | Prioridade\n";
@@ -618,11 +638,34 @@ function salvarSolicitar() {
         pedidoAprovacao();
 }
 
+// Função para pesquisar na tabela
+function searchTable() {
+  var input, filter, table, tr, td, i, j, txtValue;
+  input = document.getElementById("search-input");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("tabelaOrdens");
+  tr = table.getElementsByTagName("tr");
 
+  // Loop através de todas as linhas da tabela e de todas as células de cada linha
+  for (i = 0; i < tr.length; i++) {
+    for (j = 0; j < 7; j++) { // 7 é o número de colunas na tabela
+      td = tr[i].getElementsByTagName("td")[j];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break; // Se encontrar um resultado, sai do loop interno
+        } else {
+          tr[i].style.display = "none"; // Se não encontrar, oculta a linha
+        }
+      }
+    }
+  }
+}
 
 </script>
 <div id="footer">
-        <a href="https://davidvenancio123.github.io/senac_teste/garantia.html">
+        <a href="https://davidvenancio123.github.io/senac_teste/garantia.html" >
             <button class="button">Garantia de Novas Obras</button>
         </a>
         <a href="https://davidvenancio123.github.io/senac_teste/mant_preventiva.html">
