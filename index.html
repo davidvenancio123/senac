@@ -137,6 +137,14 @@
 
 
         .home-button {
+        display: inline-block; /* Garante que os botões sejam exibidos em linha */
+    }
+
+    .app-mobile-button {
+        float: left; /* Move o botão para a esquerda */
+        margin-right: 20px; /* Adiciona um espaço entre os botões (opcional) */
+    }
+    .home-button {
             position: fixed;
             top: 20px;
             right: 20px;
@@ -154,6 +162,25 @@
             cursor: pointer; /* Define o cursor como pointer quando o mouse está sobre o botão */
         }
         
+
+        .app-mobile-button {
+            position: fixed;
+            bottom: 40px;
+            right: 10px;
+            background-color: #afafc2;
+            color: #fff;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            border-radius: 5px;
+            cursor: pointer; /* Define o cursor padrão como pointer */
+        }
+        .app-mobile-button:hover {
+            background-color: #ffa500;
+            cursor: pointer; /* Define o cursor como pointer quando o mouse está sobre o botão */
+        }
+
         #search-container {
     margin-top: 20px; /* Altere o valor conforme necessário */
 }
@@ -163,10 +190,20 @@
 </style>
 </head>
 <body>
+      
     <a href="https://davidvenancio123.github.io/senac_teste/" class="home-button">
         <span class="home-icon"></span> Página Inicial
     </a>
+
+    <a href="https://www.webintoapp.com/store/313596" class="app-mobile-button">
+        <span class="home-icon"></span> App Mobile (Android)
+    </a>
+    
+
+ 
+
         <div id="header">
+            
     <!-- Adicionando a imagem do cabeçalho -->
     <img src="LOGO GERAL.png" alt="Logo Geral">
 </div>
@@ -242,8 +279,8 @@
             <table id="tabelaOrdens">
                 <thead>
                     <tr>
-                        <th>Nº O.S</th>
-		        <th>Data</th>
+                                                <th>Nº O.S</th>
+		                <th>Data</th>
                         <th>Unidade</th>
                         <th>Local</th>
                         <th>Descrição</th>
@@ -662,9 +699,11 @@ function searchTable() {
     }
   }
 }
-
 </script>
+
+
 <div id="footer">
+
         <a href="https://davidvenancio123.github.io/senac_teste/garantia.html" >
             <button class="button">Garantia de Novas Obras</button>
         </a>
