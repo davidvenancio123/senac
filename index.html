@@ -295,14 +295,15 @@
             <table id="tabelaOrdens">
                 <thead>
                     <tr>
-			<th>Selecionar</th>
+			            <th>Selecionar</th>
                         <th>Nº O.S</th>
-		        <th>Data</th>
+		                <th>Data</th>
                         <th>Unidade</th>
                         <th>Local</th>
                         <th>Descrição</th>
                         <th>Tipo de Manutenção</th>
                         <th>Prioridade</th>
+                        <th>Região</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -523,8 +524,6 @@ function pedidoAprovacao() {
 
 
 
-
-
 function enviar(metodo) {
     var registrosSelecionados = [];
     var checkboxes = document.querySelectorAll('.selecionarRegistro');
@@ -539,6 +538,32 @@ function enviar(metodo) {
             var descricao = row.cells[5].innerText;
             var tipoManutencao = row.cells[6].innerText;
             var prioridade = row.cells[7].innerText;
+            var regiao = row.cells[8] ? row.cells[8].innerText : '';
+            var destinatario = "";
+            var telefone = "";
+
+            // Determine the recipient email and phone number based on the region
+            if (regiao === "Região 01") {
+                destinatario = "regiao01@teste.com.br";
+                telefone = "41985326871";
+            } else if (regiao === "Região 02") {
+                destinatario = "regiao02@teste.com.br";
+                telefone = "41985326872";
+            } else if (regiao === "Região 03") {
+                destinatario = "regiao03@teste.com.br";
+                telefone = "41985326873";
+            } else if (regiao === "Região 04") {
+                destinatario = "regiao04@teste.com.br";
+                telefone = "41985326874";
+            } else if (regiao === "Região 05") {
+                destinatario = "regiao05@teste.com.br";
+                telefone = "41985326875";
+            }
+
+            // Now you can use destinatario and telefone to send the email or message
+    
+
+
 
             var ordemServico = {
                 id: id,
@@ -547,7 +572,10 @@ function enviar(metodo) {
                 local: local,
                 descricao: descricao,
                 tipoManutencao: tipoManutencao,
-                prioridade: prioridade
+                prioridade: prioridade,
+                regiao: regiao,
+                destinatario: destinatario,
+                telefone: telefone
             };
 
             registrosSelecionados.push(ordemServico);
@@ -561,6 +589,7 @@ function enviar(metodo) {
         enviarWhatsApp(registrosSelecionados);
     }
 }
+
 
 function enviarEmail(registrosSelecionados) {
     registrosSelecionados.forEach(function (ordemServico) {
@@ -576,30 +605,19 @@ function enviarEmail(registrosSelecionados) {
             "Grato, " + "\n" +
             " ";
 
-        var destinatario = "";
-
-        // Determinar os destinatários com base na região selecionada
-        if (ordemServico.regiao === "Região 01") {
-            destinatario = "regiao01@teste.com.br";
-        } else if (ordemServico.regiao === "Região 02") {
-            destinatario = "regiao02@teste.com.br";
-        } else if (ordemServico.regiao === "Região 03") {
-            destinatario = "regiao03@teste.com.br";
-        } else if (ordemServico.regiao === "Região 04") {
-            destinatario = "regiao04@teste.com.br";
-        } else if (ordemServico.regiao === "Região 05") {
-            destinatario = "regiao05@teste.com.br";
-        }
+       
 
         // Construir o link mailto com os parâmetros necessários
         var subject = "Nova Ordem de Serviço - " + ordemServico.id + " - " + ordemServico.tipoManutencao + " - " + ordemServico.unidade;
         var body = encodeURIComponent(corpoEmail);
-        var mailtoLink = "mailto:" + destinatario + "?subject=" + subject + "&body=" + body;
+        var mailtoLink = "mailto:" + ordemServico.destinatario + "?subject=" + subject + "&body=" + body;
+
 
         // Abrir o cliente de e-mail padrão com o link mailto
         window.location.href = mailtoLink;
     });
 }
+
 
 function enviarWhatsApp(registrosSelecionados) {
     registrosSelecionados.forEach(function (ordemServico) {
@@ -638,6 +656,7 @@ window.onload = function () {
     var data = document.getElementById("data").value;
     var descricao = document.getElementById("descricao").value;
     var prioridade = document.getElementById("prioridade").value;
+    var regiao = document.getElementById("regiao").value;
     const idUnico = idUnicoFixo();
 
     if (!tipoManutencao || !regiao || !unidade || !local || !data || !descricao || !prioridade) {
@@ -681,6 +700,7 @@ function exibirRegistros() {
         row.insertCell(5).innerHTML = ordemServico.descricao;
         row.insertCell(6).innerHTML = ordemServico.tipoManutencao;
         row.insertCell(7).innerHTML = ordemServico.prioridade;
+        row.insertCell(8).innerHTML = ordemServico.regiao;
     });
 }
 
