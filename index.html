@@ -198,10 +198,28 @@
         }
     }
 
+    #scrollButton {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #000066;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #scrollButton:hover {
+            background-color: #ffa500;
+        }
 
 </style>
 </head>
 <body>
+    
       
     <a href="https://davidvenancio123.github.io/senac_teste/" class="home-button">
         <span class="home-icon"></span> Página Inicial
@@ -279,7 +297,7 @@
             <button type="button" onclick="salvarSolicitar()">Solicitar Aprovação</button>
             <button type="button" onclick="enviar('email')">Enviar O.S por E-mail</button>
             <button type="button" onclick="enviar('whatsapp')">Enviar O.S por WhatsApp</button>
-            
+                        
         </div>
 
 
@@ -540,24 +558,24 @@ function enviar(metodo) {
             var prioridade = row.cells[7].innerText;
             var regiao = row.cells[8] ? row.cells[8].innerText : '';
             var destinatario = "";
-            var telefone = "";
+            var telefone="";
 
             // Determine the recipient email and phone number based on the region
             if (regiao === "Região 01") {
                 destinatario = "regiao01@teste.com.br";
-                telefone = "41985326871";
+                
             } else if (regiao === "Região 02") {
                 destinatario = "regiao02@teste.com.br";
-                telefone = "41985326872";
+                
             } else if (regiao === "Região 03") {
                 destinatario = "regiao03@teste.com.br";
-                telefone = "41985326873";
+                
             } else if (regiao === "Região 04") {
                 destinatario = "regiao04@teste.com.br";
-                telefone = "41985326874";
+                
             } else if (regiao === "Região 05") {
                 destinatario = "regiao05@teste.com.br";
-                telefone = "41985326875";
+                
             }
 
             // Now you can use destinatario and telefone to send the email or message
@@ -633,8 +651,24 @@ function enviarWhatsApp(registrosSelecionados) {
             "Grato, " + "\n" +
             " ";
 
-        // Abrir o WhatsApp Web com uma mensagem pré-definida
-        var whatsappLink = "https://web.whatsapp.com/send?text=" + encodeURIComponent(corpoWhatsApp);
+            var telefone;
+
+        // Determine o número de telefone com base na região
+        if (ordemServico.regiao === "Região 01") {
+            telefone = "41985326871";
+        } else if (ordemServico.regiao === "Região 02") {
+            telefone = "41985326872";
+        } else if (ordemServico.regiao === "Região 03") {
+            telefone = "41985326873";
+        } else if (ordemServico.regiao === "Região 04") {
+            telefone = "41985326874";
+        } else if (ordemServico.regiao === "Região 05") {
+            telefone = "41985326875";
+        }
+
+
+        /// Abrir o WhatsApp Web com uma mensagem pré-definida
+        var whatsappLink = "https://wa.me/" + telefone + "?text=" + encodeURIComponent(corpoWhatsApp);
         window.open(whatsappLink);
     });
 }
