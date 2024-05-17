@@ -276,9 +276,10 @@
         <input type="text" id="filtroData" placeholder="Selecione a data">
 
         <div class="button-container">
-            <button type="button" onclick="enviar('email')">Enviar por E-mail</button>
-            <button type="button" onclick="enviar('whatsapp')">Enviar por WhatsApp</button>
             <button type="button" onclick="salvarSolicitar()">Solicitar Aprovação</button>
+            <button type="button" onclick="enviar('email')">Enviar O.S por E-mail</button>
+            <button type="button" onclick="enviar('whatsapp')">Enviar O.S por WhatsApp</button>
+            
         </div>
 
 
@@ -294,8 +295,9 @@
             <table id="tabelaOrdens">
                 <thead>
                     <tr>
-                                                <th>Nº O.S</th>
-		                <th>Data</th>
+			<th>Selecionar</th>
+                        <th>Nº O.S</th>
+		        <th>Data</th>
                         <th>Unidade</th>
                         <th>Local</th>
                         <th>Descrição</th>
@@ -366,11 +368,12 @@
     }
 
     function atualizarUnidades() {
-        var regiao = document.getElementById("regiao").value;
-        var unidadesSelect = document.getElementById("unidade");
+    var regiao = document.getElementById("regiao").value;
+    var unidadesSelect = document.getElementById("unidade");
 
-        // Limpar as opções atuais
-        unidadesSelect.innerHTML = '<option value="">Selecione a unidade</option>';
+    // Limpar as opções atuais
+    unidadesSelect.innerHTML = '&lt;option value=""&gt;Selecione a unidade&lt;/option&gt;';
+
 
          // Adicionar as opções correspondentes à região selecionada
         if (regiao === "Região 01") {
@@ -430,141 +433,63 @@
         adicionarUnidadeOption("ARAPONGAS - R. Tico Tico Rei, 51 - Gleba Patrimônio Arapongas - CEP: 86.702-666"," ");
         adicionarUnidadeOption("BELA VISTA DO PARAÍSO - Praça Brasílio de Araujo Filho, 41 - Centro - CEP: 86.130-000"," ");
         // Adicionar unidades da Região 05 conforme necessário
-    }document.getElementById('regiao').addEventListener('change', function() {
- 
- 
-        var regiaoSelecionada = this.value;
-  // Lógica para gerar o ID único (substitua por sua lógica real)
-  var idUnico = gerarIdUnico(regiaoSelecionada);
-  // Inserir o ID único no campo oculto
-  document.getElementById('idunico').value = idUnico;
+
+    }
+
+    }
+
+    function adicionarUnidadeOption(nome, endereco) {
+    var unidadesSelect = document.getElementById("unidade");
+    var option = document.createElement("option");
+    option.text = nome + " - " + endereco;
+    option.value = nome;
+    unidadesSelect.add(option);
+
+    }
+    
+    
+    
+    document.getElementById('regiao').addEventListener('change', function() {
+    atualizarUnidades();
+    var regiaoSelecionada = this.value;
+    var idUnico = gerarIdUnico(regiaoSelecionada);
+    document.getElementById('idunico').value = idUnico;
 });
 
 
-}
-/// Função para gerar um ID único para Ordem de Serviço
-function gerarIdUnico(regiao) {
+
+
+
+let idUnicoArmazenado = null;
+
+function gerarIdUnico() {
     const agora = new Date();
     const ano = agora.getFullYear();
-    const mes = String(agora.getMonth() + 1).padStart(2, '0'); // Adiciona um zero à esquerda se o mês tiver apenas um dígito
-    const dia = String(agora.getDate()).padStart(2, '0'); // Adiciona um zero à esquerda se o dia tiver apenas um dígito
+    const mes = String(agora.getMonth() + 1).padStart(2, '0');
+    const dia = String(agora.getDate()).padStart(2, '0');
     const hora = String(agora.getHours()).padStart(2, '0');
     const minuto = String(agora.getMinutes()).padStart(2, '0');
     const segundo = String(agora.getSeconds()).padStart(2, '0');
-    const milissegundo = String(agora.getMilliseconds()).padStart(3, '0'); // Adiciona zeros à esquerda se o milissegundo tiver menos de três dígitos
+    const milissegundo = String(agora.getMilliseconds()).padStart(3, '0');
 
     return `${ano}${mes}${dia}${hora}${minuto}${segundo}${milissegundo}`;
 }
 
-
-    function adicionarUnidadeOption(nome, endereco) {
-        var unidadesSelect = document.getElementById("unidade");
-        var option = document.createElement("option");
-        option.text = nome + " - " + endereco;
-        option.value = nome;
-        unidadesSelect.add(option);
+function idUnicoFixo() {
+    if (idUnicoArmazenado === null) {
+        idUnicoArmazenado = gerarIdUnico();
     }
+    return idUnicoArmazenado;
+}
 
-    function enviar(metodo) {
-        var tipoManutencao = document.getElementById("tipoManutencao").value;
-        var regiao = document.getElementById("regiao").value;
-        var unidade = document.getElementById("unidade").value;
-        var local = document.getElementById("local").value;
-        var data = document.getElementById("data").value;
-        var descricao = document.getElementById("descricao").value;
-        var prioridade = document.getElementById("prioridade").value;
-        const idUnico = gerarIdUnico();
-       
-
-        // Construir o corpo do e-mail com as informações
-        var corpoEmail = "Olá," + "\n" +
-            "Nº O.S: "+ idUnico + "\n" +
-             "Temos uma demanda de serviço, segue abaixo especificação da O.S:" + "\n" + "\n" +
-            "Tipo de Manutenção: " + tipoManutencao + "\n" +
-            "Região: " + regiao + "\n" +
-            "Unidade: " + unidade + "\n" +
-            "Local: " + local + "\n" +
-            "Data da Manutenção: " + data + "\n" +
-            "Descrição: " + descricao + "\n" +
-            "Prioridade: " + prioridade + "\n" + "\n" +
-            "Grato, " + "\n" +
-            " ";
-
-        var destinatario = "";
-
-        // Determinar os destinatários com base na região selecionada
-        if (regiao === "Região 01") {
-            destinatario = "regiao01@teste.com.br";
-        } else if (regiao === "Região 02") {
-            destinatario = "regiao02@teste.com.br";
-        } else if (regiao === "Região 03") {
-            destinatario = "regiao03@teste.com.br";
-        } else if (regiao === "Região 04") {
-            destinatario = "regiao04@teste.com.br";
-        } else if (regiao === "Região 05") {
-            destinatario = "regiao05@teste.com.br";
-        }
-
-        if (metodo === 'email') {
-            // Construir o link mailto com os parâmetros necessários
-            var subject = "id - " + "Nova Ordem de Serviço - " + tipoManutencao + " - " + regiao + " - " + unidade;
-            var body = encodeURIComponent(corpoEmail);
-            var mailtoLink = "mailto:" + destinatario + "?subject=" + subject + "&body=" + body;
-
-            // Abrir o cliente de e-mail padrão com o link mailto
-            window.location.href = mailtoLink;
-        } else if (metodo === 'whatsapp') {
-            // Abrir o WhatsApp Web com uma mensagem pré-definida
-            var whatsappLink = "https://web.whatsapp.com/send?text=" + encodeURIComponent(corpoEmail);
-            window.open(whatsappLink);
-        }
-    }
-
-     
-
-//novo comando para aprovar usando o botão de salvar registros concomitantemente
-
-function pedidoAprovacao(callback) {
-    var tipoManutencao = document.getElementById("tipoManutencao").value;
-        var regiao = document.getElementById("regiao").value;
-        var unidade = document.getElementById("unidade").value;
-        var local = document.getElementById("local").value;
-        var data = document.getElementById("data").value;
-        var descricao = document.getElementById("descricao").value;
-        var prioridade = document.getElementById("prioridade").value;
-
-    // Construir o corpo do e-mail com as informações
-    var corpoEmail = "Olá," + "\n" +
-        "Uma nova ordem de serviço foi solicitada e aguarda sua aprovação:" + "\n" + "\n" +
-        "Tipo de Manutenção: " + tipoManutencao + "\n" +
-            "Região: " + regiao + "\n" +
-            "Unidade: " + unidade + "\n" +
-            "Local: " + local + "\n" +
-            "Data da Manutenção: " + data + "\n" +
-            "Descrição: " + descricao + "\n" +
-            "Prioridade: " + prioridade + "\n" + "\n" +
-            "Aprovar: [https://davidvenancio123.github.io/senac_teste/aprovada.html]" + "\n" +
-            "Reprovar: [https://davidvenancio123.github.io/senac_teste/reprovada.html]" + "\n" + "\n" +
-            "Grato, " + "\n" +
-            " ";
-    var destinatario = "aprovador@teste.com.br";
-
-    // Construir o link mailto com os parâmetros necessários
-    var subject = "Nova Ordem de Serviço - " + tipoManutencao + " - " + regiao + " - " + unidade;
-    var body = encodeURIComponent(corpoEmail);
-    var mailtoLink = "mailto:" + destinatario + "?subject=" + subject + "&body=" + body;
-
-    // Abrir o cliente de e-mail padrão com o link mailto
-    window.location.href = mailtoLink;
-
-
- //cima novo comando para aprovar usando o botão de salvar registros concomitantemente
-
+function limparIdUnico() {
+    idUnicoArmazenado = null;
 }
 
 
-    function salvarOrdensServico(callback) {
-    /// Obter os dados do formulário
+//novo comando para aprovar usando o botão de salvar registros concomitantemente
+
+function pedidoAprovacao() {
     var tipoManutencao = document.getElementById("tipoManutencao").value;
     var regiao = document.getElementById("regiao").value;
     var unidade = document.getElementById("unidade").value;
@@ -572,58 +497,209 @@ function pedidoAprovacao(callback) {
     var data = document.getElementById("data").value;
     var descricao = document.getElementById("descricao").value;
     var prioridade = document.getElementById("prioridade").value;
+    const idUnico = idUnicoFixo();
 
-        // Validar se todos os campos foram preenchidos
+    var corpoEmail = "Olá,\n" +
+        "Uma nova ordem de serviço foi solicitada e aguarda sua aprovação:\n\n" +
+        "Nº O.S: " + idUnico + "\n" +
+        "Tipo de Manutenção: " + tipoManutencao + "\n" +
+        "Região: " + regiao + "\n" +
+        "Unidade: " + unidade + "\n" +
+        "Local: " + local + "\n" +
+        "Data da Manutenção: " + data + "\n" +
+        "Descrição: " + descricao + "\n" +
+        "Prioridade: " + prioridade + "\n\n" +
+        "Aprovar: [https://davidvenancio123.github.io/senac_teste/aprovada.html]\n" +
+        "Reprovar: [https://davidvenancio123.github.io/senac_teste/reprovada.html]\n\n" +
+        "Grato,\n";
+
+    var destinatario = "aprovador@teste.com.br";
+    var subject = "Nova Ordem de Serviço - " + idUnico + " - " + tipoManutencao + " - " + regiao + " - " + unidade;
+    var body = encodeURIComponent(corpoEmail);
+    var mailtoLink = "mailto:" + destinatario + "?subject=" + subject + "&body=" + body;
+
+    window.location.href = mailtoLink;
+}
+
+
+
+
+
+function enviar(metodo) {
+    var registrosSelecionados = [];
+    var checkboxes = document.querySelectorAll('.selecionarRegistro');
+
+    checkboxes.forEach(function (checkbox, index) {
+        if (checkbox.checked) {
+            var row = checkbox.parentNode.parentNode;
+            var id = row.cells[1].innerText;
+            var data = row.cells[2].innerText;
+            var unidade = row.cells[3].innerText;
+            var local = row.cells[4].innerText;
+            var descricao = row.cells[5].innerText;
+            var tipoManutencao = row.cells[6].innerText;
+            var prioridade = row.cells[7].innerText;
+
+            var ordemServico = {
+                id: id,
+                data: data,
+                unidade: unidade,
+                local: local,
+                descricao: descricao,
+                tipoManutencao: tipoManutencao,
+                prioridade: prioridade
+            };
+
+            registrosSelecionados.push(ordemServico);
+        }
+    });
+
+    // Verifica o método e executa a ação apropriada
+    if (metodo === 'email') {
+        enviarEmail(registrosSelecionados);
+    } else if (metodo === 'whatsapp') {
+        enviarWhatsApp(registrosSelecionados);
+    }
+}
+
+function enviarEmail(registrosSelecionados) {
+    registrosSelecionados.forEach(function (ordemServico) {
+        var corpoEmail = "Olá," + "\n" +
+            "Temos uma demanda de serviço, segue abaixo especificação da O.S:" + "\n" + "\n" +
+            "Nº O.S: " + ordemServico.id + "\n" +
+            "Tipo de Manutenção: " + ordemServico.tipoManutencao + "\n" +
+            "Unidade: " + ordemServico.unidade + "\n" +
+            "Local: " + ordemServico.local + "\n" +
+            "Data da Manutenção: " + ordemServico.data + "\n" +
+            "Descrição: " + ordemServico.descricao + "\n" +
+            "Prioridade: " + ordemServico.prioridade + "\n" + "\n" +
+            "Grato, " + "\n" +
+            " ";
+
+        var destinatario = "";
+
+        // Determinar os destinatários com base na região selecionada
+        if (ordemServico.regiao === "Região 01") {
+            destinatario = "regiao01@teste.com.br";
+        } else if (ordemServico.regiao === "Região 02") {
+            destinatario = "regiao02@teste.com.br";
+        } else if (ordemServico.regiao === "Região 03") {
+            destinatario = "regiao03@teste.com.br";
+        } else if (ordemServico.regiao === "Região 04") {
+            destinatario = "regiao04@teste.com.br";
+        } else if (ordemServico.regiao === "Região 05") {
+            destinatario = "regiao05@teste.com.br";
+        }
+
+        // Construir o link mailto com os parâmetros necessários
+        var subject = "Nova Ordem de Serviço - " + ordemServico.id + " - " + ordemServico.tipoManutencao + " - " + ordemServico.unidade;
+        var body = encodeURIComponent(corpoEmail);
+        var mailtoLink = "mailto:" + destinatario + "?subject=" + subject + "&body=" + body;
+
+        // Abrir o cliente de e-mail padrão com o link mailto
+        window.location.href = mailtoLink;
+    });
+}
+
+function enviarWhatsApp(registrosSelecionados) {
+    registrosSelecionados.forEach(function (ordemServico) {
+        var corpoWhatsApp = "Olá," + "\n" +
+            "Temos uma demanda de serviço, segue abaixo especificação da O.S:" + "\n" + "\n" +
+            "Nº O.S: " + ordemServico.id + "\n" +
+            "Tipo de Manutenção: " + ordemServico.tipoManutencao + "\n" +
+            "Unidade: " + ordemServico.unidade + "\n" +
+            "Local: " + ordemServico.local + "\n" +
+            "Data da Manutenção: " + ordemServico.data + "\n" +
+            "Descrição: " + ordemServico.descricao + "\n" +
+            "Prioridade: " + ordemServico.prioridade + "\n" + "\n" +
+            "Grato, " + "\n" +
+            " ";
+
+        // Abrir o WhatsApp Web com uma mensagem pré-definida
+        var whatsappLink = "https://web.whatsapp.com/send?text=" + encodeURIComponent(corpoWhatsApp);
+        window.open(whatsappLink);
+    });
+}
+
+window.onload = function () {
+    exibirRegistros();
+};
+
+    
+    
+
+     
+
+        function salvarOrdensServico(callback) {
+    var tipoManutencao = document.getElementById("tipoManutencao").value;
+    var regiao = document.getElementById("regiao").value;
+    var unidade = document.getElementById("unidade").value;
+    var local = document.getElementById("local").value;
+    var data = document.getElementById("data").value;
+    var descricao = document.getElementById("descricao").value;
+    var prioridade = document.getElementById("prioridade").value;
+    const idUnico = idUnicoFixo();
+
     if (!tipoManutencao || !regiao || !unidade || !local || !data || !descricao || !prioridade) {
         alert("Por favor, preencha todos os campos.");
         return;
     }
 
+    var ordemServico = {
+        id: idUnico,
+        tipoManutencao: tipoManutencao,
+        regiao: regiao,
+        unidade: unidade,
+        local: local,
+        data: data,
+        descricao: descricao,
+        prioridade: prioridade
+    };
+
+    var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
+    registros.push(ordemServico);
+    localStorage.setItem("ordensServico", JSON.stringify(registros));
+    document.getElementById("ordemServicoForm").reset();
+    exibirRegistros();
+    salvarTxt();
+}
 
 
 
+function exibirRegistros() {
+    var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
+    var tabela = document.getElementById("tabelaOrdens").getElementsByTagName('tbody')[0];
+    tabela.innerHTML = '';
 
-        // Criar um objeto representando a ordem de serviço
-        var ordemServico = {
-            id: idUnico, // pega a função gerarIdUnico() para gerar um identificador único
-            tipoManutencao: tipoManutencao,
-            regiao: regiao,
-            unidade: unidade,
-            local: local,
-            data: data,
-            descricao: descricao,
-            prioridade: prioridade
-        };
+    registros.forEach(function (ordemServico) {
+        var row = tabela.insertRow();
+        row.insertCell(0).innerHTML = '<input type="checkbox" class="selecionarRegistro">';
+        row.insertCell(1).innerHTML = ordemServico.id;
+        row.insertCell(2).innerHTML = ordemServico.data;
+        row.insertCell(3).innerHTML = ordemServico.unidade;
+        row.insertCell(4).innerHTML = ordemServico.local;
+        row.insertCell(5).innerHTML = ordemServico.descricao;
+        row.insertCell(6).innerHTML = ordemServico.tipoManutencao;
+        row.insertCell(7).innerHTML = ordemServico.prioridade;
+    });
+}
 
-        // Obter os registros salvos do armazenamento local ou inicializar um array vazio
-        var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
-
-        // Adicionar a nova ordem de serviço aos registros
-        registros.push(ordemServico);
-
-        // Armazenar os registros atualizados no armazenamento local
-        localStorage.setItem("ordensServico", JSON.stringify(registros));
-
-        // Limpar os campos do formulário após salvar
-        document.getElementById("ordemServicoForm").reset();
-
-        // Atualizar a tabela de exibição dos registros
-        exibirRegistros();
-
-    	// Chamar a função para salvar o arquivo .txt
-    	salvarTxt();
-    }
+window.onload = exibirRegistros;
 
 
-    function exibirRegistros() {
-        var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
-        var tabela = document.getElementById("tabelaOrdens").getElementsByTagName('tbody')[0];
-        tabela.innerHTML = ''; // Limpar a tabela antes de adicionar os registros atualizados
 
-        // Iterar sobre os registros e adicionar cada um à tabela
-        registros.forEach(function(ordemServico) {
-             var row = tabela.insertRow();
-        row.insertCell(0).innerHTML = ordemServico.id; // Incluir o identificador na primeira coluna (oculta)
+function filtrarPorData(dataSelecionada) {
+    var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
+    var tabela = document.getElementById("tabelaOrdens").getElementsByTagName('tbody')[0];
+    tabela.innerHTML = '';
+
+    var registrosFiltrados = registros.filter(function(ordemServico) {
+        return ordemServico.data === dataSelecionada;
+    });
+
+    registrosFiltrados.forEach(function(ordemServico) {
+        var row = tabela.insertRow();
+        row.insertCell(0).innerHTML = ordemServico.id;
         row.insertCell(1).innerHTML = ordemServico.data;
         row.insertCell(2).innerHTML = ordemServico.unidade;
         row.insertCell(3).innerHTML = ordemServico.local;
@@ -631,65 +707,31 @@ function pedidoAprovacao(callback) {
         row.insertCell(5).innerHTML = ordemServico.tipoManutencao;
         row.insertCell(6).innerHTML = ordemServico.prioridade;
     });
-    }
+}
 
-    function filtrarPorData(dataSelecionada) {
-        var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
-        var tabela = document.getElementById("tabelaOrdens").getElementsByTagName('tbody')[0];
-        tabela.innerHTML = ''; // Limpar a tabela antes de adicionar os registros filtrados
+document.getElementById("data").addEventListener("change", function() {
+    filtrarPorData(this.value);
+});
 
-        // Filtrar os registros que correspondem à data selecionada
-        var registrosFiltrados = registros.filter(function(ordemServico) {
-            return ordemServico.data === dataSelecionada;
-        });
-
-        // Adicionar os registros filtrados à tabela
-        registrosFiltrados.forEach(function(ordemServico) {
-            var row = tabela.insertRow();
-        row.insertCell(0).innerHTML = ordemServico.id; // Incluir o identificador na primeira coluna (oculta)
-        row.insertCell(1).innerHTML = ordemServico.data;
-        row.insertCell(2).innerHTML = ordemServico.unidade;
-        row.insertCell(3).innerHTML = ordemServico.local;
-        row.insertCell(4).innerHTML = ordemServico.descricao;
-        row.insertCell(5).innerHTML = ordemServico.tipoManutencao;
-        row.insertCell(6).innerHTML = ordemServico.prioridade;
-    });
-    }
 
     // Exibir os registros ao carregar a página
     window.onload = exibirRegistros;
 
     
-async function salvarTxt() {
-        var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
-        var texto = "Data | Unidade | Local | Descrição | Tipo de Manutenção | Prioridade\n";
+    function salvarTxt() {
+    var registros = JSON.parse(localStorage.getItem("ordensServico")) || [];
+    var conteudo = "ID,Data,Unidade,Local,Descrição,Tipo de Manutenção,Prioridade\n";
 
-        registros.forEach(function(ordemServico) {
-            texto += `${ordemServico.data} | ${ordemServico.unidade} | ${ordemServico.local} | ${ordemServico.descricao} | ${ordemServico.tipoManutencao} | ${ordemServico.prioridade}\n`;
-        });
+    registros.forEach(function(ordemServico) {
+        conteudo += `${ordemServico.id},${ordemServico.data},${ordemServico.unidade},${ordemServico.local},${ordemServico.descricao},${ordemServico.tipoManutencao},${ordemServico.prioridade}\n`;
+    });
 
-        try {
-            const handle = await window.showSaveFilePicker({
-                types: [
-                    {
-                        description: 'Arquivos de texto',
-                        accept: {
-                            'text/plain': ['.txt'],
-                        },
-                    },
-                ],
-                startIn: 'documents', // Defina o diretório inicial aqui
-            });
-
-            const writableStream = await handle.createWritable();
-            await writableStream.write(new Blob([texto], { type: "text/plain;charset=utf-8" }));
-            await writableStream.close();
-
-            console.log('Arquivo salvo com sucesso!');
-        } catch (err) {
-            console.error('Erro ao salvar o arquivo:', err);
-        }
-    }
+    var blob = new Blob([conteudo], { type: "text/plain;charset=utf-8" });
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "ordens_servico.txt";
+    link.click();
+}
 
 
  
